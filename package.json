@@ -1,0 +1,43 @@
+{
+  "name": "theoretically-meh",
+  "version": "0.0.1",
+  "description": "A twitch chat bot, named after my friend Will, who always answered \"How are you?\" with \"Meh.\"",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Twitch",
+    "Bot",
+    "Twitch",
+    "Chat",
+    "Bot",
+    "Chat",
+    "TypeScript",
+    "tmi.js"
+  ],
+  "author": "Shane Breining",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "tmi.js": "^1.5.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^6.1.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/faker": "^5.1.4",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.6",
+    "@types/tmi.js": "^1.4.2",
+    "faker": "^5.1.0",
+    "jest": "^26.6.3",
+    "rollup": "^2.33.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.0.0",
+    "tslib": "^2.0.3",
+    "typescript": "^4.0.5"
+  }
+}

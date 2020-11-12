@@ -1,0 +1,9 @@
+# Folders
+build/
+
+coverage/
+
+node_modules/
+
+# Files
+.env
