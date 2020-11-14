@@ -15,9 +15,9 @@ const mockHowTo = howTo as jest.Mock;
 jest.mock("../../src/utility/string");
 const mockSplitMessage = splitMessage as jest.Mock;
 
-let mockRollReturnVal;
-let mockHowToReturnVal;
-let mockSplitMessageReturnVal;
+let mockRollReturnVal: string;
+let mockHowToReturnVal: string;
+let mockSplitMessageReturnVal: Array<string>;
 
 describe("executeCommand", () => {
   beforeEach(() => {

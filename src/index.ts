@@ -5,7 +5,7 @@ import executeCommand from "./commands";
 config();
 
 const options = {
-  channels: [process.env.CHANNEL],
+  channels: [process.env.CHANNEL || ""],
   // connection: {
   //     secure: true,
   //     reconnect: true,
