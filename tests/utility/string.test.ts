@@ -10,6 +10,12 @@ describe("splitMessage", () => {
     const actual = splitMessage(str);
 
     expect(actual.length).toBe(Math.ceil(str.length / MAX_MESSAGE_LENGTH));
-    expect(actual.pop().length).toBe(str.length % MAX_MESSAGE_LENGTH);
+
+    let last = actual.pop();
+    if (last) {
+      expect(last.length).toBe(str.length % MAX_MESSAGE_LENGTH);
+    } else {
+      fail("Something is wrong, pop should have returned a value.");
+    }
   });
 });

@@ -30,6 +30,6 @@ export default async function executeCommand(command: string, context: Record<st
     case COMMAND_HOWTO:
       return [howTo(list[1])];
     default:
-      return;
+      return [];
   }
 }
