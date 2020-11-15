@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file: docker.env.prod
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
