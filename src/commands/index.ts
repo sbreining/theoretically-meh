@@ -2,7 +2,7 @@ import { splitMessage } from "../utility/string";
 import rollDice, { COMMAND_ROLL } from "./dice";
 import howTo, { COMMAND_HOWTO } from "./howTo";
 
-export const COMMAND_AVAILABLE = "availCom";
+export const COMMAND_AVAILABLE = "commands";
 const availableCommands = [COMMAND_AVAILABLE, COMMAND_ROLL, COMMAND_HOWTO];
 const availableMessage = `The list of available commands are: ${availableCommands.join(", ")}`;
 

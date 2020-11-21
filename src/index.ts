@@ -4,8 +4,10 @@ import executeCommand from "./commands";
 
 config();
 
+const channel = process.env.CHANNEL || "";
+
 const options = {
-  channels: [process.env.CHANNEL || ""],
+  channels: [channel],
   // connection: {
   //     secure: true,
   //     reconnect: true,
@@ -21,6 +23,7 @@ const Will = Client(options);
 
 const onConnectedHandler = (address: string, port: number) => {
   console.log(`* Connected to ${address}:${port}`);
+  Will.action(channel, " is here now, and feeling 'meh'.");
 };
 
 const onMessageHandler = (
@@ -35,9 +38,9 @@ const onMessageHandler = (
   const command = message.trim().slice(1);
 
   executeCommand(command, userContext)
-    .then((results: Array<string>) =>
-      results.forEach((result) => Will.say(channel, result))
-    )
+    .then((results: Array<string>) => {
+      results.forEach((result) => Will.say(channel, result));
+    })
     .catch(() => {
       /* Do Nothing */
     });
