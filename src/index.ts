@@ -1,29 +1,37 @@
-import { config } from "dotenv";
 import { ChatUserstate, Client } from "tmi.js";
 import executeCommand from "./commands";
+import { config } from "./utility";
+import { convertMinutesToMs } from "./utility/time";
 
-config();
-
-const channel = process.env.CHANNEL || "";
+const { twitch } = config;
 
 const options = {
-  channels: [channel],
-  // connection: {
-  //     secure: true,
-  //     reconnect: true,
-  // },
+  channels: [twitch.channel],
+  connection: {
+    secure: true,
+    reconnect: true,
+  },
   identity: {
-    username: process.env.USERNAME,
-    password: process.env.TOKEN,
+    username: twitch.username,
+    password: twitch.password,
   },
 };
 
 // I miss you, Will. Hopefully you're resting well big guy.
 const Will = Client(options);
 
+const repeatMessage = () => {
+  Will.say(
+    twitch.channel,
+    "Welcome to KettelBear's den. Please, feel free explore available commands (!commands), or check out the discord (!discord)."
+  );
+};
+
 const onConnectedHandler = (address: string, port: number) => {
   console.log(`* Connected to ${address}:${port}`);
-  Will.action(channel, " is here now, and feeling 'meh'.");
+  Will.action(twitch.channel, " is here now, and feeling 'meh'.");
+
+  setInterval(repeatMessage, convertMinutesToMs(5));
 };
 
 const onMessageHandler = (

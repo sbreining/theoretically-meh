@@ -1,6 +1,7 @@
 import { name, random } from "faker";
 import executeCommand, { COMMAND_AVAILABLE } from "../../src/commands";
 import rollDice, { COMMAND_ROLL } from "../../src/commands/dice";
+import discord, { COMMAND_DISCORD } from "../../src/commands/discord";
 import howTo, { COMMAND_HOWTO } from "../../src/commands/howTo";
 import { splitMessage } from "../../src/utility/string";
 
@@ -8,15 +9,21 @@ import { splitMessage } from "../../src/utility/string";
 jest.mock("../../src/commands/dice");
 const mockRoll = rollDice as jest.Mock;
 
+// discord mock.
+jest.mock("../../src/commands/discord");
+const mockDiscord = discord as jest.Mock;
+
 // howTo mock.
 jest.mock("../../src/commands/howTo");
 const mockHowTo = howTo as jest.Mock;
 
+// string utility mock
 jest.mock("../../src/utility/string");
 const mockSplitMessage = splitMessage as jest.Mock;
 
 let mockRollReturnVal: string;
 let mockHowToReturnVal: string;
+let mockDiscordReturnVal: string;
 let mockSplitMessageReturnVal: Array<string>;
 
 describe("executeCommand", () => {
@@ -28,6 +35,10 @@ describe("executeCommand", () => {
     // mockHowTo
     mockHowToReturnVal = random.word();
     mockHowTo.mockReturnValue(mockHowToReturnVal);
+
+    // mockDiscord
+    mockDiscordReturnVal = random.word();
+    mockDiscord.mockReturnValue(mockDiscordReturnVal);
 
     // mockSplitMessage
     mockSplitMessageReturnVal = [random.words(random.number())];
@@ -56,6 +67,13 @@ describe("executeCommand", () => {
     expect(actual).toStrictEqual([mockRollReturnVal]);
   });
 
+  it('should return whatever "discord" returns', async () => {
+    const command = COMMAND_DISCORD;
+    const actual = await executeCommand(command, {});
+
+    expect(actual).toStrictEqual([mockDiscordReturnVal]);
+  });
+
   it('should call "howTo" with the command name', async () => {
     const word = random.word();
     const command = COMMAND_HOWTO + " " + word;
@@ -73,11 +91,11 @@ describe("executeCommand", () => {
     expect(actual).toStrictEqual([mockHowToReturnVal]);
   });
 
-  it("should return nothing when the command is not recognized", async () => {
+  it("should return an empty array when the command is not recognized", async () => {
     const word = random.word();
     const actual = await executeCommand(word, {});
 
-    expect(actual).toBeUndefined();
+    expect(actual).toStrictEqual([]);
   });
 
   it('should call "splitMessage" when asking for the available commands', async () => {

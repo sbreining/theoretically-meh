@@ -1,9 +1,10 @@
 import { splitMessage } from "../utility/string";
 import rollDice, { COMMAND_ROLL } from "./dice";
+import discord, { COMMAND_DISCORD } from './discord';
 import howTo, { COMMAND_HOWTO } from "./howTo";
 
 export const COMMAND_AVAILABLE = "commands";
-const availableCommands = [COMMAND_AVAILABLE, COMMAND_ROLL, COMMAND_HOWTO];
+const availableCommands = [COMMAND_AVAILABLE, COMMAND_ROLL, COMMAND_HOWTO, COMMAND_DISCORD];
 const availableMessage = `The list of available commands are: ${availableCommands.join(", ")}`;
 
 /**
@@ -27,6 +28,8 @@ export default async function executeCommand(command: string, context: Record<st
     case COMMAND_ROLL:
       const sides = Number(list[1]);
       return [rollDice(sides, context["display-name"])];
+    case COMMAND_DISCORD:
+      return [discord()];
     case COMMAND_HOWTO:
       return [howTo(list[1])];
     default:
