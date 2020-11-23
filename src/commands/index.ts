@@ -1,11 +1,12 @@
 import { splitMessage } from "../utility/string";
-import rollDice, { COMMAND_ROLL } from "./dice";
-import discord, { COMMAND_DISCORD } from './discord';
-import howTo, { COMMAND_HOWTO } from "./howTo";
+import dice from "./dice";
+import discord from "./discord";
+import howTo from "./howTo";
 
-export const COMMAND_AVAILABLE = "commands";
-const availableCommands = [COMMAND_AVAILABLE, COMMAND_ROLL, COMMAND_HOWTO, COMMAND_DISCORD];
-const availableMessage = `The list of available commands are: ${availableCommands.join(", ")}`;
+export const commands = "commands";
+const availableCommands = [dice.command, howTo.command, discord.command];
+const joinedCommands = availableCommands.join(", ");
+const availableMessage = `The list of available commands are: ${joinedCommands}`;
 
 /**
  * Executes `command` and calls appropriate fucntion to handle
@@ -15,24 +16,39 @@ const availableMessage = `The list of available commands are: ${availableCommand
  * @param {string} command - Will dictate which command is executed.
  * @param {Record} context - This is a collection of details
  *                           about the user.
- * @return {Promise<Array<string>>} - The message, split into pieces
- *                                    of 500 characters, to ensure not
- *                                    to reach character limit.
+ * @return {string} - The message, split into pieces
+ *                    of 500 characters, to ensure not
+ *                    to reach character limit.
  */
-export default async function executeCommand(command: string, context: Record<string, any>): Promise<Array<string>> {
+export default async function executeCommand(
+  command: string,
+  context: Record<string, any>
+): Promise<string> {
   const list = command.split(" ");
 
+  let message: string;
+
   switch (list[0]) {
-    case COMMAND_AVAILABLE:
-      return splitMessage(availableMessage);
-    case COMMAND_ROLL:
+    case commands:
+      message = availableMessage;
+      break;
+
+    case dice.command:
       const sides = Number(list[1]);
-      return [rollDice(sides, context["display-name"])];
-    case COMMAND_DISCORD:
-      return [discord()];
-    case COMMAND_HOWTO:
-      return [howTo(list[1])];
+      message = dice.exec(sides, context["display-name"]);
+      break;
+
+    case discord.command:
+      message = discord.exec();
+      break;
+
+    case howTo.command:
+      message = howTo.exec(list[1]);
+      break;
+
     default:
-      return [];
+      return "";
   }
+
+  return message;
 }

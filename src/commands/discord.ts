@@ -1,14 +1,21 @@
 import { config } from "../utility";
+import Command from "./command";
 
-export const COMMAND_DISCORD = "discord";
+class Discord implements Command {
+  public command = "discord";
 
-const { links } = config;
+  public instruction = 'Simply type "!discord" to see discord information';
 
-/**
- * Returns a simple message with the discord link.
- *
- * @return {string} - The message including the discord link.
- */
-export default function discord(): string {
-  return `All are welcome to join the den. Find your way in: ${links.discord}`;
+  /**
+   * Returns a simple message with the discord link.
+   *
+   * @return {string} - The message including the discord link.
+   */
+  public exec(): string {
+    const { links } = config;
+
+    return `All are welcome to join the den. Find your way in: ${links.discord}`;
+  }
 }
+
+export default new Discord();

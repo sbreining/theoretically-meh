@@ -1,6 +1,6 @@
 import { ChatUserstate, Client } from "tmi.js";
 import executeCommand from "../commands";
-import { config, convertMinutesToMs } from "../utility";
+import { config, convertMinutesToMs, splitMessage } from "../utility";
 
 const { twitch } = config;
 
@@ -33,7 +33,7 @@ const onConnectedHandler = (address: string, port: number) => {
   console.log(`* Connected to ${address}:${port}`);
   Will.action(twitch.channel, " is here now, and feeling 'meh'.");
 
-  setInterval(repeatMessage, convertMinutesToMs(5));
+  setInterval(repeatMessage, convertMinutesToMs(10));
 };
 
 const onMessageHandler = (
@@ -48,11 +48,12 @@ const onMessageHandler = (
   const command = message.trim().slice(1);
 
   executeCommand(command, userContext)
-    .then((results: Array<string>) => {
-      results.forEach((result) => Will.say(channel, result));
+    .then((message: string) => {
+      const messages = splitMessage(message);
+      messages.forEach((result) => Will.say(channel, result));
     })
     .catch(() => {
-      /* Do Nothing */
+      /* Do nothing for now. */
     });
 };
 

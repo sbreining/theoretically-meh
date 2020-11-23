@@ -1,13 +1,22 @@
 import { random } from "faker";
-import { COMMAND_ROLL, DICE_HOW_TO } from "../../src/commands/dice";
-import howTo, { HOWTO_HOW_TO } from "../../src/commands/howTo";
+import dice from "../../src/commands/dice";
+import discord from "../../src/commands/discord";
+import howTo from "../../src/commands/howTo";
 
 describe("howTo", () => {
   it("should return the explanation for how to roll the dice", () => {
-    expect(howTo(COMMAND_ROLL)).toBe(DICE_HOW_TO);
+    expect(howTo.exec(dice.command)).toBe(dice.instruction);
+  });
+
+  it("should return the explanation for how to use the discord command", () => {
+    expect(howTo.exec(discord.command)).toBe(discord.instruction);
   });
 
   it("should return the explanation for how to use howTo for any random word", () => {
-    expect(howTo(random.word())).toBe(HOWTO_HOW_TO);
+    expect(howTo.exec(random.word())).toBe(howTo.instruction);
+  });
+
+  it("should return the explanation for how to use howTo for no word", () => {
+    expect(howTo.exec()).toBe(howTo.instruction);
   });
 });

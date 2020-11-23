@@ -1,21 +1,21 @@
 import { name, random } from "faker";
-import executeCommand, { COMMAND_AVAILABLE } from "../../src/commands";
-import rollDice, { COMMAND_ROLL } from "../../src/commands/dice";
-import discord, { COMMAND_DISCORD } from "../../src/commands/discord";
-import howTo, { COMMAND_HOWTO } from "../../src/commands/howTo";
+import executeCommand, { commands } from "../../src/commands";
+import dice from "../../src/commands/dice";
+import discord from "../../src/commands/discord";
+import howTo from "../../src/commands/howTo";
 import { splitMessage } from "../../src/utility/string";
 
 // rollDice mock.
 jest.mock("../../src/commands/dice");
-const mockRoll = rollDice as jest.Mock;
+const mockRoll = dice.exec as jest.Mock;
 
 // discord mock.
 jest.mock("../../src/commands/discord");
-const mockDiscord = discord as jest.Mock;
+const mockDiscord = discord.exec as jest.Mock;
 
 // howTo mock.
 jest.mock("../../src/commands/howTo");
-const mockHowTo = howTo as jest.Mock;
+const mockHowTo = howTo.exec as jest.Mock;
 
 // string utility mock
 jest.mock("../../src/utility/string");
@@ -24,7 +24,6 @@ const mockSplitMessage = splitMessage as jest.Mock;
 let mockRollReturnVal: string;
 let mockHowToReturnVal: string;
 let mockDiscordReturnVal: string;
-let mockSplitMessageReturnVal: Array<string>;
 
 describe("executeCommand", () => {
   beforeEach(() => {
@@ -39,10 +38,6 @@ describe("executeCommand", () => {
     // mockDiscord
     mockDiscordReturnVal = random.word();
     mockDiscord.mockReturnValue(mockDiscordReturnVal);
-
-    // mockSplitMessage
-    mockSplitMessageReturnVal = [random.words(random.number())];
-    mockSplitMessage.mockReturnValue(mockSplitMessageReturnVal);
   });
 
   afterEach(() => {
@@ -51,7 +46,7 @@ describe("executeCommand", () => {
 
   it('should call "rollDice" with provided arguments', async () => {
     const sides = random.number();
-    const command = COMMAND_ROLL + " " + sides;
+    const command = dice.command + " " + sides;
     const firstName = name.firstName();
 
     await executeCommand(command, { "display-name": firstName });
@@ -61,22 +56,22 @@ describe("executeCommand", () => {
   });
 
   it('should return whatever "rollDice" returns', async () => {
-    const command = COMMAND_ROLL;
+    const command = dice.command;
     const actual = await executeCommand(command, {});
 
-    expect(actual).toStrictEqual([mockRollReturnVal]);
+    expect(actual).toStrictEqual(mockRollReturnVal);
   });
 
   it('should return whatever "discord" returns', async () => {
-    const command = COMMAND_DISCORD;
+    const command = discord.command;
     const actual = await executeCommand(command, {});
 
-    expect(actual).toStrictEqual([mockDiscordReturnVal]);
+    expect(actual).toStrictEqual(mockDiscordReturnVal);
   });
 
   it('should call "howTo" with the command name', async () => {
     const word = random.word();
-    const command = COMMAND_HOWTO + " " + word;
+    const command = howTo.command + " " + word;
 
     await executeCommand(command, {});
 
@@ -85,28 +80,22 @@ describe("executeCommand", () => {
   });
 
   it('should return whatever "howTo" returns', async () => {
-    const command = COMMAND_HOWTO;
+    const command = howTo.command;
     const actual = await executeCommand(command, {});
 
-    expect(actual).toStrictEqual([mockHowToReturnVal]);
+    expect(actual).toStrictEqual(mockHowToReturnVal);
   });
 
-  it("should return an empty array when the command is not recognized", async () => {
+  it("should return an empty string when the command is not recognized", async () => {
     const word = random.word();
     const actual = await executeCommand(word, {});
 
-    expect(actual).toStrictEqual([]);
-  });
-
-  it('should call "splitMessage" when asking for the available commands', async () => {
-    await executeCommand(COMMAND_AVAILABLE, {});
-
-    expect(mockSplitMessage).toHaveBeenCalledTimes(1);
+    expect(actual).toBe("");
   });
 
   it('should return whatever "splitMessage" returns', async () => {
-    const actual = await executeCommand(COMMAND_AVAILABLE, {});
+    const actual = await executeCommand(commands, {});
 
-    expect(actual).toStrictEqual(mockSplitMessageReturnVal);
+    expect(actual).toContain("The list of available commands are: ");
   });
 });

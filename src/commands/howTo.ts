@@ -1,21 +1,29 @@
-import { COMMAND_ROLL, DICE_HOW_TO } from "./dice";
+import Command from "./command";
+import dice from "./dice";
+import discord from "./discord";
 
-export const COMMAND_HOWTO = "howTo";
+class HowTo implements Command {
+  public command = "howTo";
 
-export const HOWTO_HOW_TO =
-  'To learn how to use a command, simply do "!howTwo [command]"';
+  public instruction =
+    'To learn how to use a command, simply do "!howTwo [command]"';
 
-/**
- * When passed `command`, a description will be returned explaining
- * how to use `command`.
- *
- * @param {string} command - The command to learn how to use.
- */
-export default function howTo(command: string): string {
-  switch (command) {
-    case COMMAND_ROLL:
-      return DICE_HOW_TO;
-    default:
-      return HOWTO_HOW_TO;
+  /**
+   * When passed `command`, a description will be returned explaining
+   * how to use `command`.
+   *
+   * @param {string|undefined} command - The command to learn how to use.
+   */
+  public exec(command?: string): string {
+    switch (command) {
+      case dice.command:
+        return dice.instruction;
+      case discord.command:
+        return discord.instruction;
+      default:
+        return this.instruction;
+    }
   }
 }
+
+export default new HowTo();
