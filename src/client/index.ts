@@ -19,21 +19,20 @@ const options = {
 // I miss you, Will. Hopefully you're resting well big guy.
 const Will = Client(options);
 
-const repeatMessage = () => {
-  const message =
-    "Welcome to KettelBear's den. Please, feel free explore" +
-    " available commands (!commands), or check out the discord" +
-    " (!discord). Find more information below the stream," +
-    " including schedule, computer specs, follower goals, etc.";
+const repeateMessage =
+  "Welcome to KettelBear's den. Please, feel free explore" +
+  " available commands (!commands), or check out the discord" +
+  " (!discord). Find more information below the stream," +
+  " including schedule, computer specs, follower goals, etc.";
 
-  Will.say(twitch.channel, message);
-};
-
-const onConnectedHandler = (address: string, port: number) => {
+const onConnectedHandler = (address: string, port: number): void => {
   console.log(`* Connected to ${address}:${port}`);
   Will.action(twitch.channel, " is here now, and feeling 'meh'.");
 
-  setInterval(repeatMessage, convertMinutesToMs(10));
+  setInterval(
+    () => Will.say(twitch.channel, repeateMessage),
+    convertMinutesToMs(10)
+  );
 };
 
 const onMessageHandler = (
@@ -41,8 +40,8 @@ const onMessageHandler = (
   userContext: ChatUserstate,
   message: string,
   self: boolean
-) => {
-  // Ignore messages from itself.
+): void => {
+  // Ignore messages from itself, or those that are not commands.
   if (self || !message.startsWith("!")) return;
 
   const command = message.trim().slice(1);
@@ -57,7 +56,6 @@ const onMessageHandler = (
     });
 };
 
-Will.on("connected", onConnectedHandler);
-Will.on("message", onMessageHandler);
+Will.on("connected", onConnectedHandler).on("message", onMessageHandler);
 
 export default Will;
