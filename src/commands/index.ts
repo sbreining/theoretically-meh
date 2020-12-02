@@ -1,4 +1,3 @@
-import { splitMessage } from "../utility/string";
 import dice from "./dice";
 import discord from "./discord";
 import howTo from "./howTo";
