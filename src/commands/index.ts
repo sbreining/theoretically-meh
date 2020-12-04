@@ -1,6 +1,7 @@
 import dice from "./dice";
 import discord from "./discord";
 import howTo from "./howTo";
+import points from "./points";
 
 export const commands = "commands";
 const availableCommands = [dice.command, howTo.command, discord.command];
@@ -43,6 +44,10 @@ export default async function executeCommand(
 
     case howTo.command:
       message = howTo.exec(list[1]);
+      break;
+
+    case points.command:
+      message = await points.exec(context["display-name"]);
       break;
 
     default:

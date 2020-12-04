@@ -18,3 +18,10 @@ export default interface Command {
    */
   exec(...args: any[]): string;
 }
+
+export interface AsyncCommand {
+  // TODO: Fix this. It needs comments.
+  command: string;
+  instruction: string;
+  exec(...args: any[]): Promise<string>;
+}

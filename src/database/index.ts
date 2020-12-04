@@ -1,3 +1,7 @@
-import { createConnection } from "typeorm";
+import { createConnection, getConnectionOptions } from "typeorm";
+import entities from "./entities";
 
-createConnection().catch((err) => console.error("Error: ", err));
+export default async function connectToDb(): Promise<void> {
+  let options = await getConnectionOptions();
+  await createConnection({ ...options, entities });
+}

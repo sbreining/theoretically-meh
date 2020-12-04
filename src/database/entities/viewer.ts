@@ -1,16 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Timestamp,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity()
+@Entity({ name: "viewers" })
 export class Viewer {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column({ length: 25 })
-  name: string;
+  public name: string;
 
   @Column()
-  points: number;
+  public points: number;
 
-  @Column()
-  created_at: Date;
+  @CreateDateColumn()
+  public created_at: Timestamp;
 }
