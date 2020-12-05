@@ -1,10 +1,15 @@
-import { getViewerByName, create } from "../database/repositories/viewer";
+import { getViewerByName, create, find } from "../database/repositories/viewer";
 import Command from "./command";
 
 class Points implements Command {
   public command = "points";
 
-  public instruction = "To come later.";
+  public instruction =
+    "To find out how many points you have, simply type the" +
+    " command '!points'. Points are earned by remaining in" +
+    " channel, at 1 point per 5 minutes while live, and 1" +
+    " point per 15 minutes while offline. There are also" +
+    " additional ways, via games in chat.";
 
   /**
    * Will tell `name` how many points they have.
@@ -19,7 +24,8 @@ class Points implements Command {
 
     let viewer = await getViewerByName(viewer_name);
     if (!viewer) {
-      viewer = await create(viewer_name);
+      const id = await create(viewer_name);
+      viewer = await find(id);
     }
 
     return `${viewer_name} has ${viewer.points} points!`;

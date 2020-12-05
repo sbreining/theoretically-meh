@@ -48,7 +48,7 @@ export default async function executeCommand(
       break;
 
     case points.command:
-      message = await points.exec(context.username);
+      message = await points.exec(context["display-name"]);
       break;
 
     default:

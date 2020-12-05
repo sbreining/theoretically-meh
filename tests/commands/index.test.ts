@@ -3,87 +3,27 @@ import executeCommand, { commands } from "../../src/commands";
 import dice from "../../src/commands/dice";
 import discord from "../../src/commands/discord";
 import howTo from "../../src/commands/howTo";
-import { splitMessage } from "../../src/utility/string";
+import points from "../../src/commands/points";
 
-// rollDice mock.
-jest.mock("../../src/commands/dice");
-const mockRoll = dice.exec as jest.Mock;
-
-// discord mock.
+// !discord
 jest.mock("../../src/commands/discord");
 const mockDiscord = discord.exec as jest.Mock;
 
-// howTo mock.
+// !howTo
 jest.mock("../../src/commands/howTo");
 const mockHowTo = howTo.exec as jest.Mock;
 
-// string utility mock
-jest.mock("../../src/utility/string");
-const mockSplitMessage = splitMessage as jest.Mock;
+// !points
+jest.mock("../../src/commands/points");
+const mockPoints = points.exec as jest.Mock;
 
-let mockRollReturnVal: string;
-let mockHowToReturnVal: string;
-let mockDiscordReturnVal: string;
+// !roll
+jest.mock("../../src/commands/dice");
+const mockRoll = dice.exec as jest.Mock;
 
 describe("executeCommand", () => {
-  beforeEach(() => {
-    // mockRoll
-    mockRollReturnVal = random.word();
-    mockRoll.mockReturnValue(mockRollReturnVal);
-
-    // mockHowTo
-    mockHowToReturnVal = random.word();
-    mockHowTo.mockReturnValue(mockHowToReturnVal);
-
-    // mockDiscord
-    mockDiscordReturnVal = random.word();
-    mockDiscord.mockReturnValue(mockDiscordReturnVal);
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('should call "rollDice" with provided arguments', async () => {
-    const sides = random.number();
-    const command = dice.command + " " + sides;
-    const firstName = name.firstName();
-
-    await executeCommand(command, { "display-name": firstName });
-
-    expect(mockRoll).toHaveBeenCalledTimes(1);
-    expect(mockRoll).toHaveBeenCalledWith(sides, firstName);
-  });
-
-  it('should return whatever "rollDice" returns', async () => {
-    const command = dice.command;
-    const actual = await executeCommand(command, {});
-
-    expect(actual).toStrictEqual(mockRollReturnVal);
-  });
-
-  it('should return whatever "discord" returns', async () => {
-    const command = discord.command;
-    const actual = await executeCommand(command, {});
-
-    expect(actual).toStrictEqual(mockDiscordReturnVal);
-  });
-
-  it('should call "howTo" with the command name', async () => {
-    const word = random.word();
-    const command = howTo.command + " " + word;
-
-    await executeCommand(command, {});
-
-    expect(mockHowTo).toHaveBeenCalledTimes(1);
-    expect(mockHowTo).toHaveBeenCalledWith(word);
-  });
-
-  it('should return whatever "howTo" returns', async () => {
-    const command = howTo.command;
-    const actual = await executeCommand(command, {});
-
-    expect(actual).toStrictEqual(mockHowToReturnVal);
   });
 
   it("should return an empty string when the command is not recognized", async () => {
@@ -97,5 +37,100 @@ describe("executeCommand", () => {
     const actual = await executeCommand(commands, {});
 
     expect(actual).toContain("The list of available commands are: ");
+  });
+
+  describe("!discord", () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.word();
+      mockDiscord.mockReturnValue(returnValue);
+    });
+
+    it('should return whatever "discord" returns', async () => {
+      const command = discord.command;
+      const actual = await executeCommand(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
+  });
+
+  describe("!howTo", () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.word();
+      mockHowTo.mockReturnValue(returnValue);
+    });
+
+    it('should call "howTo" with the command name', async () => {
+      const word = random.word();
+      const command = howTo.command + " " + word;
+
+      await executeCommand(command, {});
+
+      expect(mockHowTo).toHaveBeenCalledTimes(1);
+      expect(mockHowTo).toHaveBeenCalledWith(word);
+    });
+
+    it('should return whatever "howTo" returns', async () => {
+      const command = howTo.command;
+      const actual = await executeCommand(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
+  });
+
+  describe("!points", () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.word();
+      mockPoints.mockReturnValue(returnValue);
+    });
+
+    it("shouold call points.exec() with", async () => {
+      const username = name.firstName();
+      const command = points.command;
+
+      await executeCommand(command, { "display-name": username });
+
+      expect(mockPoints).toHaveBeenCalledTimes(1);
+      expect(mockPoints).toHaveBeenCalledWith(username);
+    });
+
+    it("should return whatever points.exec() returns", async () => {
+      const command = points.command;
+      const actual = await executeCommand(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
+  });
+
+  describe("!roll", () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.word();
+      mockRoll.mockReturnValue(returnValue);
+    });
+
+    it('should call "rollDice" with provided arguments', async () => {
+      const sides = random.number();
+      const command = dice.command + " " + sides;
+      const firstName = name.firstName();
+
+      await executeCommand(command, { "display-name": firstName });
+
+      expect(mockRoll).toHaveBeenCalledTimes(1);
+      expect(mockRoll).toHaveBeenCalledWith(sides, firstName);
+    });
+
+    it('should return whatever "rollDice" returns', async () => {
+      const command = dice.command;
+      const actual = await executeCommand(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
   });
 });

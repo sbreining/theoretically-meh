@@ -6,17 +6,20 @@ import { Viewer } from "../entities/viewer";
  * @param name
  * @param connection
  */
-export const getViewerByName = async (
+export const create = async (
   name: string,
   connection: Connection = null
-): Promise<Viewer> => {
+): Promise<number> => {
   connection = connection || getConnection();
 
-  return connection
-    .getRepository(Viewer)
+  const result = await connection
     .createQueryBuilder()
-    .where("name = :name", { name: name.toLowerCase() })
-    .getOne();
+    .insert()
+    .into(Viewer)
+    .values({ name: name.toLowerCase(), points: 1 })
+    .execute();
+
+  return result.identifiers[0].id;
 };
 
 /**
@@ -42,18 +45,15 @@ export const find = async (
  * @param name
  * @param connection
  */
-export const create = async (
+export const getViewerByName = async (
   name: string,
   connection: Connection = null
 ): Promise<Viewer> => {
   connection = connection || getConnection();
 
-  const result = await connection
+  return connection
+    .getRepository(Viewer)
     .createQueryBuilder()
-    .insert()
-    .into(Viewer)
-    .values({ name: name.toLowerCase(), points: 1 })
-    .execute();
-
-  return find(result.identifiers[0].id, connection);
+    .where("name = :name", { name: name.toLowerCase() })
+    .getOne();
 };

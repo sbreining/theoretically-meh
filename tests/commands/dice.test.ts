@@ -26,7 +26,7 @@ describe("rollDice", () => {
   });
 
   it("should roll between 0 and the Math.floor() of a float provided", () => {
-    const val = random.float();
+    const val = 5.5; // random.float() does not guarantee a non #.0 value.
     const rolled = getValueRolled(dice.exec(val));
 
     expect(rolled).toBeLessThanOrEqual(Math.floor(val));

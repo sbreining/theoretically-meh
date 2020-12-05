@@ -1,6 +1,7 @@
 import Command from "./command";
 import dice from "./dice";
 import discord from "./discord";
+import points from "./points";
 
 class HowTo implements Command {
   public command = "howTo";
@@ -20,6 +21,8 @@ class HowTo implements Command {
         return dice.instruction;
       case discord.command:
         return discord.instruction;
+      case points.command:
+        return points.instruction;
       default:
         return this.instruction;
     }

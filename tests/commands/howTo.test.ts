@@ -2,6 +2,7 @@ import { random } from "faker";
 import dice from "../../src/commands/dice";
 import discord from "../../src/commands/discord";
 import howTo from "../../src/commands/howTo";
+import points from "../../src/commands/points";
 
 describe("howTo", () => {
   it("should return the explanation for how to roll the dice", () => {
@@ -18,5 +19,9 @@ describe("howTo", () => {
 
   it("should return the explanation for how to use howTo for no word", () => {
     expect(howTo.exec()).toBe(howTo.instruction);
+  });
+
+  it("should return the explanation for how to use points", () => {
+    expect(howTo.exec(points.command)).toBe(points.instruction);
   });
 });
