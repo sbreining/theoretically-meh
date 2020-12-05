@@ -1,3 +1,4 @@
+import { ChatUserstate } from "tmi.js";
 import dice from "./dice";
 import discord from "./discord";
 import howTo from "./howTo";
@@ -14,15 +15,15 @@ const availableMessage = `The list of available commands are: ${joinedCommands}`
  * magic happens.
  *
  * @param {string} command - Will dictate which command is executed.
- * @param {Record} context - This is a collection of details
- *                           about the user.
- * @return {string} - The message, split into pieces
- *                    of 500 characters, to ensure not
- *                    to reach character limit.
+ * @param {ChatUserstate} context - This is a collection of details
+ *                                  about the user.
+ * @return {Promise<string>} - The message, split into pieces
+ *                             of 500 characters, to ensure not
+ *                             to reach character limit.
  */
 export default async function executeCommand(
   command: string,
-  context: Record<string, any>
+  context: ChatUserstate
 ): Promise<string> {
   const list = command.split(" ");
 
@@ -47,7 +48,7 @@ export default async function executeCommand(
       break;
 
     case points.command:
-      message = await points.exec(context["display-name"]);
+      message = await points.exec(context.username);
       break;
 
     default:

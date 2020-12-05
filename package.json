@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "start": "node build/index.js",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "keywords": [
     "Twitch",

@@ -35,25 +35,20 @@ const onConnectedHandler = (address: string, port: number): void => {
   setInterval(channelBroadcast, convertMinutesToMs(10));
 };
 
-const onMessageHandler = (
+const onMessageHandler = async (
   channel: string,
   userContext: ChatUserstate,
   message: string,
   self: boolean
-): void => {
+): Promise<void> => {
   // Ignore messages from itself, or those that are not commands.
   if (self || !message.startsWith("!")) return;
 
   const command = message.trim().slice(1);
 
-  executeCommand(command, userContext)
-    .then((message: string) => {
-      const messages = splitMessage(message);
-      messages.forEach((result) => Will.say(channel, result));
-    })
-    .catch(() => {
-      /* Do nothing for now. */
-    });
+  const response = await executeCommand(command, userContext);
+
+  splitMessage(response).forEach((msg) => Will.say(channel, msg));
 };
 
 Will.on("connected", onConnectedHandler).on("message", onMessageHandler);

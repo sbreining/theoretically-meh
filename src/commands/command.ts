@@ -15,13 +15,7 @@ export default interface Command {
    * is entered in chat.
    *
    * @param {Array<any>} args - If any are necessary
+   * @returns {string|Promise<string} - The string response.
    */
-  exec(...args: any[]): string;
-}
-
-export interface AsyncCommand {
-  // TODO: Fix this. It needs comments.
-  command: string;
-  instruction: string;
-  exec(...args: any[]): Promise<string>;
+  exec(...args: any[]): string | Promise<string>;
 }

@@ -1,34 +1,25 @@
-import { getConnection } from "typeorm";
-import { Viewer } from "../database/entities/viewer";
-import { AsyncCommand } from "./command";
+import { getViewerByName, create } from "../database/repositories/viewer";
+import Command from "./command";
 
-class Points implements AsyncCommand {
+class Points implements Command {
   public command = "points";
 
   public instruction = "To come later.";
 
+  /**
+   * Will tell `name` how many points they have.
+   *
+   * @param {string|null} viewer_name - The display name of the viewer.
+   * @param {Promise<string>} - The message with name and points.
+   */
   public async exec(viewer_name?: string): Promise<string> {
     if (!viewer_name) {
       return "Could not figure out who to find points for.";
     }
 
-    const connection = await getConnection();
-
-    const viewer = await connection
-      .getRepository(Viewer)
-      .createQueryBuilder("viewers")
-      .where("viewers.name = :name", { name: viewer_name.toLowerCase() })
-      .getOne();
-
+    let viewer = await getViewerByName(viewer_name);
     if (!viewer) {
-      connection
-        .createQueryBuilder()
-        .insert()
-        .into(Viewer)
-        .values({ name: viewer_name.toLowerCase(), points: 1 })
-        .execute();
-
-      return `${viewer_name} has 1 point!`;
+      viewer = await create(viewer_name);
     }
 
     return `${viewer_name} has ${viewer.points} points!`;
