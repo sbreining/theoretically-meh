@@ -1,4 +1,9 @@
-import { createConnection, getConnectionOptions } from "typeorm";
+import {
+  Connection,
+  createConnection,
+  getConnection as getTypeormConnection,
+  getConnectionOptions,
+} from "typeorm";
 import entities from "./entities";
 
 /**
@@ -7,4 +12,13 @@ import entities from "./entities";
 export default async function connectToDb(): Promise<void> {
   let options = await getConnectionOptions();
   await createConnection({ ...options, entities });
+}
+
+/**
+ * A simple wrapper function for `getConnection` in typeorm.
+ *
+ * @returns {Connection} - The connection to the database.
+ */
+export function getConnection(): Connection {
+  return getTypeormConnection();
 }

@@ -1,7 +1,7 @@
 import { ChatUserstate, Client } from "tmi.js";
 import executeCommand from "./commands";
 import { config, convertMinutesToMs, splitMessage } from "./utility";
-import connectToDb from "./database";
+import connect from "./database";
 
 const { twitch } = config;
 
@@ -53,6 +53,6 @@ const onMessageHandler = async (
 
 Will.on("connected", onConnectedHandler).on("message", onMessageHandler);
 
-connectToDb().then(() => {
+connect().then(() => {
   Will.connect();
 });

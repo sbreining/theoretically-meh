@@ -1,18 +1,12 @@
-import { Connection, getConnection } from "typeorm";
+import { getConnection } from "../index";
 import { Viewer } from "../entities/viewer";
 
 /**
  *
  * @param name
- * @param connection
  */
-export const create = async (
-  name: string,
-  connection: Connection = null
-): Promise<number> => {
-  connection = connection || getConnection();
-
-  const result = await connection
+export const create = async (name: string): Promise<number> => {
+  const result = await getConnection()
     .createQueryBuilder()
     .insert()
     .into(Viewer)
@@ -27,13 +21,8 @@ export const create = async (
  * @param id
  * @param connection
  */
-export const find = async (
-  id: number,
-  connection: Connection = null
-): Promise<Viewer> => {
-  connection = connection || getConnection();
-
-  return connection
+export const find = async (id: number): Promise<Viewer> => {
+  return getConnection()
     .getRepository(Viewer)
     .createQueryBuilder()
     .where("id = :id", { id })
@@ -45,13 +34,8 @@ export const find = async (
  * @param name
  * @param connection
  */
-export const getViewerByName = async (
-  name: string,
-  connection: Connection = null
-): Promise<Viewer> => {
-  connection = connection || getConnection();
-
-  return connection
+export const findByName = async (name: string): Promise<Viewer> => {
+  return getConnection()
     .getRepository(Viewer)
     .createQueryBuilder()
     .where("name = :name", { name: name.toLowerCase() })

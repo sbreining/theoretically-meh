@@ -1,4 +1,4 @@
-import { getViewerByName, create, find } from "../database/repositories/viewer";
+import { create, find, findByName } from "../database/repositories/viewer";
 import Command from "./command";
 
 class Points implements Command {
@@ -22,13 +22,16 @@ class Points implements Command {
       return "Could not figure out who to find points for.";
     }
 
-    let viewer = await getViewerByName(viewer_name);
+    let viewer = await findByName(viewer_name);
     if (!viewer) {
       const id = await create(viewer_name);
       viewer = await find(id);
     }
 
-    return `${viewer_name} has ${viewer.points} points!`;
+    const points = viewer.points;
+    const is_plural = 1 === viewer.points;
+
+    return `${viewer_name} has ${points} ${is_plural ? "point" : "points"}!`;
   }
 }
 
