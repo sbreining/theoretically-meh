@@ -1,5 +1,5 @@
 import { name, random } from "faker";
-import executeCommand, { commands } from "../../src/commands";
+import execute, { commands } from "../../src/commands";
 import dice from "../../src/commands/dice";
 import discord from "../../src/commands/discord";
 import howTo from "../../src/commands/howTo";
@@ -21,20 +21,20 @@ const mockPoints = points.exec as jest.Mock;
 jest.mock("../../src/commands/dice");
 const mockRoll = dice.exec as jest.Mock;
 
-describe("executeCommand", () => {
+describe("execute", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("should return an empty string when the command is not recognized", async () => {
     const word = random.word();
-    const actual = await executeCommand(word, {});
+    const actual = await execute(word, {});
 
     expect(actual).toBe("");
   });
 
   it('should return whatever "splitMessage" returns', async () => {
-    const actual = await executeCommand(commands, {});
+    const actual = await execute(commands, {});
 
     expect(actual).toContain("The list of available commands are: ");
   });
@@ -49,7 +49,7 @@ describe("executeCommand", () => {
 
     it('should return whatever "discord" returns', async () => {
       const command = discord.command;
-      const actual = await executeCommand(command, {});
+      const actual = await execute(command, {});
 
       expect(actual).toStrictEqual(returnValue);
     });
@@ -67,7 +67,7 @@ describe("executeCommand", () => {
       const word = random.word();
       const command = howTo.command + " " + word;
 
-      await executeCommand(command, {});
+      await execute(command, {});
 
       expect(mockHowTo).toHaveBeenCalledTimes(1);
       expect(mockHowTo).toHaveBeenCalledWith(word);
@@ -75,7 +75,7 @@ describe("executeCommand", () => {
 
     it('should return whatever "howTo" returns', async () => {
       const command = howTo.command;
-      const actual = await executeCommand(command, {});
+      const actual = await execute(command, {});
 
       expect(actual).toStrictEqual(returnValue);
     });
@@ -93,7 +93,7 @@ describe("executeCommand", () => {
       const username = name.firstName();
       const command = points.command;
 
-      await executeCommand(command, { "display-name": username });
+      await execute(command, { "display-name": username });
 
       expect(mockPoints).toHaveBeenCalledTimes(1);
       expect(mockPoints).toHaveBeenCalledWith(username);
@@ -101,7 +101,7 @@ describe("executeCommand", () => {
 
     it("should return whatever points.exec() returns", async () => {
       const command = points.command;
-      const actual = await executeCommand(command, {});
+      const actual = await execute(command, {});
 
       expect(actual).toStrictEqual(returnValue);
     });
@@ -120,7 +120,7 @@ describe("executeCommand", () => {
       const command = dice.command + " " + sides;
       const firstName = name.firstName();
 
-      await executeCommand(command, { "display-name": firstName });
+      await execute(command, { "display-name": firstName });
 
       expect(mockRoll).toHaveBeenCalledTimes(1);
       expect(mockRoll).toHaveBeenCalledWith(sides, firstName);
@@ -128,7 +128,7 @@ describe("executeCommand", () => {
 
     it('should return whatever "rollDice" returns', async () => {
       const command = dice.command;
-      const actual = await executeCommand(command, {});
+      const actual = await execute(command, {});
 
       expect(actual).toStrictEqual(returnValue);
     });

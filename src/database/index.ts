@@ -9,7 +9,7 @@ import entities from "./entities";
 /**
  * Initiates the database connection.
  */
-export default async function connectToDb(): Promise<void> {
+export default async function connect(): Promise<void> {
   let options = await getConnectionOptions();
   await createConnection({ ...options, entities });
 }

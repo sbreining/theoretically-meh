@@ -1,5 +1,5 @@
 import { random } from "faker";
-import { convertMinutesToMs } from "../../src/utility/time";
+import { convertMinutesToMs } from "../../src/utility";
 
 describe("convertMinutesToMs", () => {
   let minutes = Math.floor(random.number());

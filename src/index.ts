@@ -1,5 +1,5 @@
 import { ChatUserstate, Client } from "tmi.js";
-import executeCommand from "./commands";
+import execute from "./commands";
 import { config, convertMinutesToMs, splitMessage } from "./utility";
 import connect from "./database";
 
@@ -46,7 +46,7 @@ const onMessageHandler = async (
 
   const command = message.trim().slice(1);
 
-  const response = await executeCommand(command, userContext);
+  const response = await execute(command, userContext);
 
   splitMessage(response).forEach((msg) => Will.say(channel, msg));
 };

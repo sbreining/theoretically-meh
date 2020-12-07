@@ -4,7 +4,7 @@ import {
   getConnectionOptions,
   getConnection as getTypeormCon,
 } from "typeorm";
-import connectToDb, { getConnection } from "../../src/database";
+import connect, { getConnection } from "../../src/database";
 
 jest.mock("../../src/database/entities/viewer", () => jest.fn());
 jest.mock("typeorm");
@@ -19,7 +19,7 @@ describe("Database", () => {
 
   describe("connectToDb", () => {
     it("should call both typeorm functions for setting options and creating a connection", async () => {
-      await connectToDb();
+      await connect();
 
       expect(mockCreate).toHaveBeenCalledTimes(1);
       expect(mockGetConnect).toHaveBeenCalledTimes(1);

@@ -3,4 +3,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./tests/**/*.ts"]
 }
