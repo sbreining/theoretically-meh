@@ -1,7 +1,7 @@
-import { ChatUserstate, Client } from "tmi.js";
-import execute from "@commands";
-import { config, convertMinutesToMs, splitMessage } from "@utility";
-import connect from "@database";
+import { ChatUserstate, Client } from 'tmi.js';
+import execute from '@commands';
+import { config, convertMinutesToMs, splitMessage } from '@utility';
+import connect from '@database';
 
 const { twitch } = config;
 
@@ -21,16 +21,16 @@ const options = {
 const Will = Client(options);
 
 const broadcastMessage =
-  "Welcome to KettelBear's den. Please, feel free explore" +
-  " available commands (!commands), or check out the discord" +
-  " (!discord). Find more information below the stream," +
-  " including schedule, computer specs, follower goals, etc.";
+  'Welcome to KettelBear\'s den. Please, feel free explore' +
+  ' available commands (!commands), or check out the discord' +
+  ' (!discord). Find more information below the stream,' +
+  ' including schedule, computer specs, follower goals, etc.';
 
 const channelBroadcast = () => Will.say(twitch.channel, broadcastMessage);
 
 const onConnectedHandler = (address: string, port: number): void => {
   console.log(`* Connected to ${address}:${port}`);
-  Will.action(twitch.channel, " is here now, and feeling 'meh'.");
+  Will.action(twitch.channel, ' is here now, and feeling "meh".');
 
   setInterval(channelBroadcast, convertMinutesToMs(10));
 };
@@ -42,7 +42,7 @@ const onMessageHandler = async (
   self: boolean
 ): Promise<void> => {
   // Ignore messages from itself, or those that are not commands.
-  if (self || !message.startsWith("!")) return;
+  if (self || !message.startsWith('!')) return;
 
   const command = message.trim().slice(1);
 
@@ -51,7 +51,7 @@ const onMessageHandler = async (
   splitMessage(response).forEach((msg) => Will.say(channel, msg));
 };
 
-Will.on("connected", onConnectedHandler).on("message", onMessageHandler);
+Will.on('connected', onConnectedHandler).on('message', onMessageHandler);
 
 connect().then(() => {
   Will.connect();

@@ -4,9 +4,9 @@ import {
   Column,
   Timestamp,
   CreateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity({ name: "viewers" })
+@Entity({ name: 'viewers' })
 export class Viewer {
   @PrimaryGeneratedColumn()
   public id: number;

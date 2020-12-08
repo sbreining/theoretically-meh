@@ -3,8 +3,8 @@ import {
   createConnection,
   getConnection as getTypeormConnection,
   getConnectionOptions,
-} from "typeorm";
-import entities from "./entities";
+} from 'typeorm';
+import entities from './entities';
 
 /**
  * Initiates the database connection.
