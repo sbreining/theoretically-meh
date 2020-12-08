@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@commands": ["src/commands"],
+      "@commands/*": ["src/commands/*"],
+      "@database": ["src/database"],
+      "@entities/*": ["src/database/entities/*"],
+      "@repositories/*": ["src/database/repositories/*"],
+      "@utility": ["src/utility"]
+    },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
-  },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./tests/**/*.ts"]
+  }
 }

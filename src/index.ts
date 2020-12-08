@@ -1,7 +1,7 @@
 import { ChatUserstate, Client } from "tmi.js";
-import execute from "./commands";
-import { config, convertMinutesToMs, splitMessage } from "./utility";
-import connect from "./database";
+import execute from "@commands";
+import { config, convertMinutesToMs, splitMessage } from "@utility";
+import connect from "@database";
 
 const { twitch } = config;
 

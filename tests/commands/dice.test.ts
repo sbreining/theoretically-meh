@@ -1,5 +1,5 @@
 import { name, random } from "faker";
-import dice from "../../src/commands/dice";
+import dice from "@commands/dice";
 
 const getValueRolled = (message: string): number => {
   return Number(message.split(" ")[3].slice(0, -1));

@@ -1,11 +1,7 @@
 import { internet, random } from "faker";
-import { getRandomInteger } from "../../src/utility";
-import points from "../../src/commands/points";
-import {
-  findByName,
-  create,
-  find,
-} from "../../src/database/repositories/viewer";
+import { getRandomInteger } from "@utility";
+import points from "@commands/points";
+import { findByName, create, find } from "@repositories/viewer";
 
 jest.mock("../../src/database/repositories/viewer");
 const mockGetViewerByName = findByName as jest.Mock;

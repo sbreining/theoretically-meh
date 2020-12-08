@@ -1,5 +1,5 @@
 import { getConnection } from "../index";
-import { Viewer } from "../entities/viewer";
+import { Viewer } from "@entities/viewer";
 
 /**
  *

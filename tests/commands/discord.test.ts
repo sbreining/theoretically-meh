@@ -1,4 +1,4 @@
-import discord from "../../src/commands/discord";
+import discord from "@commands/discord";
 
 describe("discord", () => {
   it("should return the expected message", () => {

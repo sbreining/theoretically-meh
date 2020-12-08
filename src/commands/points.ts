@@ -1,4 +1,4 @@
-import { create, find, findByName } from "../database/repositories/viewer";
+import { create, find, findByName } from "@repositories/viewer";
 import Command from "./command";
 
 class Points implements Command {

@@ -1,5 +1,5 @@
 import { random } from "faker";
-import { getRandomInteger, splitMessage } from "../../src/utility";
+import { getRandomInteger, splitMessage } from "@utility";
 import { MAX_MESSAGE_LENGTH } from "../../src/utility/string";
 
 describe("splitMessage", () => {

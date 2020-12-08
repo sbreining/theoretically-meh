@@ -1,4 +1,4 @@
-import { config } from "../utility";
+import { config } from "@utility";
 import Command from "./command";
 
 class Discord implements Command {

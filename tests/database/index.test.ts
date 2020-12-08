@@ -4,7 +4,7 @@ import {
   getConnectionOptions,
   getConnection as getTypeormCon,
 } from "typeorm";
-import connect, { getConnection } from "../../src/database";
+import connect, { getConnection } from "@database";
 
 jest.mock("../../src/database/entities/viewer", () => jest.fn());
 jest.mock("typeorm");

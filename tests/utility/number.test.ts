@@ -1,5 +1,5 @@
 import { random } from "faker";
-import { getRandomInteger } from "../../src/utility";
+import { getRandomInteger } from "@utility";
 
 describe("getRandomInteger", () => {
   const min = random.number();

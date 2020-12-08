@@ -1,11 +1,7 @@
 import { internet, random } from "faker";
-import { getConnection } from "../../../src/database";
-import { Viewer } from "../../../src/database/entities/viewer";
-import {
-  create,
-  find,
-  findByName,
-} from "../../../src/database/repositories/viewer";
+import { getConnection } from "@database";
+import { Viewer } from "@entities/viewer";
+import { create, find, findByName } from "@repositories/viewer";
 
 jest.mock("../../../src/database");
 const mockGetConnection = getConnection as jest.Mock;
