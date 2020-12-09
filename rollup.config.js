@@ -5,7 +5,7 @@ import { main } from './package.json';
 
 export default {
   input: main,
-  external: ['tmi.js', 'dotenv', 'mysql', 'typeorm'],
+  external: ['axios', 'tmi.js', 'dotenv', 'mysql', 'typeorm'],
   output: {
     dir: 'build',
     format: 'cjs',
