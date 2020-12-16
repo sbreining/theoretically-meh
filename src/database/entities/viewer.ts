@@ -4,10 +4,25 @@ import {
   Column,
   Timestamp,
   CreateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
-@Entity({ name: 'viewers' })
+type ViewerType = { name?: string; points?: number };
+
+@Entity({ name: "viewers" })
 export class Viewer {
+  constructor(data?: ViewerType) {
+    if (!data) return this;
+
+    this.name = data.name || "";
+    if ("name" in data) {
+      this.name = data.name;
+    }
+
+    if ("points" in data) {
+      this.points = data.points;
+    }
+  }
+
   @PrimaryGeneratedColumn()
   public id: number;
 
