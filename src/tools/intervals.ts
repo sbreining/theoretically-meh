@@ -1,3 +1,7 @@
+import { getViewersList } from "@api/twitch";
+import { addPointsByName } from "@repositories/viewer";
+import { convertMinutesToMs } from "@utility";
+
 let runningIntervals: Record<string, number> = {};
 
 // TODO: Assess whether this is necessary.
@@ -29,3 +33,24 @@ export async function createInterval(
 export async function stopInterval(name: string): Promise<void> {
   clearInterval(runningIntervals[name]);
 }
+
+/**
+ *
+ */
+const getViewers = async () => {
+  const groups = await getViewersList();
+  for (const viewer of groups.broadcaster) {
+    addPointsByName(viewer, 9);
+  }
+  for (const viewer of groups.vips) {
+    addPointsByName(viewer, 3);
+  }
+  for (const viewer of groups.moderators) {
+    addPointsByName(viewer, 5);
+  }
+  for (const viewer of groups.viewers) {
+    addPointsByName(viewer, 1);
+  }
+};
+createInterval("viewer-points", getViewers, convertMinutesToMs(5));
+// stopInterval("viewer-points");

@@ -2,9 +2,7 @@ import { ChatUserstate, Client } from "tmi.js";
 import execute from "@commands";
 import { config, convertMinutesToMs, splitMessage } from "@utility";
 import connect from "@database";
-import { createInterval } from "./tools/intervals";
-import getViewersList from "./api/twitch";
-import { addPointsByName } from "@repositories/viewer";
+import "./tools/intervals";
 
 const { twitch } = config;
 
@@ -58,29 +56,6 @@ const onMessageHandler = async (
 };
 
 Will.on("connected", onConnectedHandler).on("message", onMessageHandler);
-
-/**
- * TODO: Move this.
- */
-const getViewers = async () => {
-  const groups = await getViewersList();
-  for (const viewer of groups.broadcaster) {
-    addPointsByName(viewer, 20);
-  }
-  for (const viewer of groups.vips) {
-    addPointsByName(viewer, 5);
-  }
-  for (const viewer of groups.moderators) {
-    addPointsByName(viewer, 7);
-  }
-  for (const viewer of groups.viewers) {
-    addPointsByName(viewer, 3);
-  }
-};
-createInterval("viewer-points", getViewers, convertMinutesToMs(0.5));
-/**
- * End of "Move this."
- */
 
 connect().then(() => {
   Will.connect();

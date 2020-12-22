@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@api/*": ["src/api/*"],
       "@commands": ["src/commands"],
       "@commands/*": ["src/commands/*"],
       "@database": ["src/database"],
