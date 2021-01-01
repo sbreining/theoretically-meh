@@ -16,7 +16,7 @@ export async function addPointsByName(
   let viewer = await findByName(name);
 
   if (!viewer) {
-    await create(name, points);
+    viewer = await create(name, points);
     return;
   }
 

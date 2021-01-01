@@ -1,3 +1,4 @@
-import { Viewer } from './viewer';
+import { Token } from "./token";
+import { Viewer } from "./viewer";
 
-export default [Viewer];
+export default [Token, Viewer];
