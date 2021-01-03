@@ -32,5 +32,8 @@ export class Token {
   public token: string;
 
   @CreateDateColumn()
+  public expiration: Timestamp;
+
+  @CreateDateColumn()
   public created_at: Timestamp;
 }

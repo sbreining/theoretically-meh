@@ -18,22 +18,12 @@ const options = {
   },
 };
 
-// I miss you, Will. Hopefully you're resting well big guy.
+// I miss you, Will. Hopefully you're resting well big guy. Yes, that is a fat joke.
 const Will = Client(options);
-
-const broadcastMessage =
-  "Welcome to KettelBear's den. Please, feel free explore" +
-  " available commands (!commands), or check out the discord" +
-  " (!discord). Find more information below the stream," +
-  " including schedule, computer specs, follower goals, etc.";
-
-const channelBroadcast = () => Will.say(twitch.channel, broadcastMessage);
 
 const onConnectedHandler = (address: string, port: number): void => {
   console.log(`* Connected to ${address}:${port}`);
   Will.action(twitch.channel, ' is here now, and feeling "meh".');
-
-  setInterval(channelBroadcast, convertMinutesToMs(10));
 };
 
 const onMessageHandler = async (

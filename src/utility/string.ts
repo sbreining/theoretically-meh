@@ -10,7 +10,7 @@ export const MAX_MESSAGE_LENGTH = 500;
  * @param {string} message - The string to be split.
  */
 export function splitMessage(message: string): Array<string> {
-  const regex = new RegExp(`.{1,${MAX_MESSAGE_LENGTH}}`, 'g');
+  const regex = new RegExp(`.{1,${MAX_MESSAGE_LENGTH}}`, "g");
 
   return message.match(regex);
 }

@@ -1,8 +1,8 @@
-import { config } from '@utility';
-import Command from './command';
+import { config } from "@utility";
+import Command from "./command";
 
 class Discord implements Command {
-  public command = 'discord';
+  public command = "discord";
 
   public instruction = 'Simply type "!discord" to see discord information';
 

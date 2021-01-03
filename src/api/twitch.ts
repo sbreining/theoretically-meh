@@ -26,9 +26,6 @@ export async function getViewersList(): Promise<ViewerList> {
  * @returns {Token} - An object containing the token information.
  */
 export async function getToken(): Promise<Token> {
-  // TODO: Reach out to the database, for token, check for expiration
-  // and only make API call if it is expired.
-
   const { twitch } = config;
   const url = `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`;
 
