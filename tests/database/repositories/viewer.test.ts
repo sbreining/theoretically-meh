@@ -2,9 +2,13 @@ import { internet, random } from "faker";
 import { getConnection } from "@database";
 import { Viewer } from "@entities/viewer";
 import { create, find, findByName } from "@repositories/viewer";
+import { getRepository } from "typeorm";
 
 jest.mock("../../../src/database");
 const mockGetConnection = getConnection as jest.Mock;
+
+jest.mock("typeorm");
+const mockGetRepository = getRepository as jest.Mock;
 
 describe("Viewer Repository", () => {
   afterEach(() => {
@@ -14,37 +18,29 @@ describe("Viewer Repository", () => {
   describe("create", () => {
     let username: string;
     let id;
-    let values;
 
     beforeEach(() => {
       username = internet.userName();
       id = random.number();
 
-      const execute = jest.fn();
-      execute.mockResolvedValue({ identifiers: [{ id }] });
-
-      values = jest.fn();
-      values.mockReturnValue({ execute });
-
-      const into = jest.fn();
-      into.mockReturnValue({ values });
-
       const insert = jest.fn();
-      insert.mockReturnValue({ into });
+      insert.mockResolvedValue({
+        generatedMaps: [
+          {
+            id,
+            created_at: new Date(),
+          },
+        ],
+      });
 
-      const createQueryBuilder = jest.fn();
-      createQueryBuilder.mockReturnValue({ insert });
-      mockGetConnection.mockReturnValue({ createQueryBuilder });
+      mockGetRepository.mockReturnValue({ insert });
     });
 
     it("should create a new user and return the id", async () => {
       const actual = await create(username);
 
-      expect(values).toHaveBeenCalledWith({
-        name: username.toLowerCase(),
-        points: 1,
-      });
-      expect(actual).toBe(id);
+      expect(actual.id).toBe(id);
+      expect(actual.created_at).not.toBeNull();
     });
   });
 

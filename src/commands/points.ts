@@ -13,23 +13,23 @@ class Points implements Command {
   /**
    * Will tell `name` how many points they have.
    *
-   * @param {string|null} viewer_name - The display name of the viewer.
+   * @param {string|null} name - The display name of the viewer.
    * @param {string} - The message with name and points.
    */
-  public async exec(viewer_name?: string): Promise<string> {
-    if (!viewer_name) {
+  public async exec(name?: string): Promise<string> {
+    if (!name) {
       return "Could not figure out who to find points for.";
     }
 
-    let viewer = await findByName(viewer_name);
+    let viewer = await findByName(name);
     if (!viewer) {
-      viewer = await create(viewer_name);
+      viewer = await create(name);
     }
 
     const points = viewer.points;
     const is_plural = 1 === viewer.points;
 
-    return `${viewer_name} has ${points} ${is_plural ? "point" : "points"}!`;
+    return `${name} has ${points} ${is_plural ? "point" : "points"}!`;
   }
 }
 

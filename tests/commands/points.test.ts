@@ -1,12 +1,11 @@
 import { internet, random } from "faker";
 import { getRandomInteger } from "@utility";
 import points from "@commands/points";
-import { findByName, create, find } from "@repositories/viewer";
+import { findByName, create } from "@repositories/viewer";
 
 jest.mock("../../src/database/repositories/viewer");
 const mockGetViewerByName = findByName as jest.Mock;
 const mockCreate = create as jest.Mock;
-const mockFind = find as jest.Mock;
 
 describe("points", () => {
   afterEach(() => {
@@ -48,27 +47,25 @@ describe("points", () => {
   });
 
   describe("creates viewer", () => {
-    let display_name: string;
+    let name: string;
     let points_: number;
     let id: number;
 
     beforeEach(() => {
-      display_name = internet.userName();
+      name = internet.userName();
       points_ = 1;
       id = random.number();
 
       mockGetViewerByName.mockResolvedValue(null);
-      mockCreate.mockResolvedValue(id);
-      mockFind.mockReturnValue({ points: points_ });
+      mockCreate.mockResolvedValue({ points: points_ });
     });
 
     it("should call create() when the viewer is not found", async () => {
-      const msg = await points.exec(display_name);
+      const msg = await points.exec(name);
 
-      expect(mockGetViewerByName).toBeCalledWith(display_name);
-      expect(mockCreate).toHaveBeenCalledWith(display_name);
-      expect(mockFind).toHaveBeenCalledWith(id);
-      expect(msg).toBe(`${display_name} has ${points_} point!`);
+      expect(mockGetViewerByName).toBeCalledWith(name);
+      expect(mockCreate).toHaveBeenCalledWith(name);
+      expect(msg).toBe(`${name} has ${points_} point!`);
     });
   });
 });

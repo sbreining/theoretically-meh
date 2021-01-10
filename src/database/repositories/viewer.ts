@@ -31,9 +31,13 @@ export async function addPointsByName(
  * @returns {Promise<number>} - The ID of the newly inserted row.
  */
 export async function create(name: string, points = 1): Promise<Viewer> {
-  const viewer = new Viewer({ name: name.toLowerCase(), points });
+  let viewer = new Viewer({ name: name.toLowerCase(), points });
 
-  await getRepository(Viewer).insert(viewer);
+  let result = await getRepository(Viewer).insert(viewer);
+
+  // After insert, just update the id and created_at from the query.
+  viewer.id = result.generatedMaps[0].id;
+  viewer.created_at = result.generatedMaps[0].created_at;
 
   return viewer;
 }

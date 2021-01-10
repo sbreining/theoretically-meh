@@ -7,6 +7,8 @@ import {
 import connect, { getConnection } from "@database";
 
 jest.mock("../../src/database/entities/viewer", () => jest.fn());
+jest.mock("../../src/database/entities/token", () => jest.fn());
+
 jest.mock("typeorm");
 const mockCreate = createConnection as jest.Mock;
 const mockGetConnect = getConnectionOptions as jest.Mock;
