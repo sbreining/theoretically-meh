@@ -4,6 +4,7 @@ import dice from "@commands/dice";
 import discord from "@commands/discord";
 import howTo from "@commands/howTo";
 import points from "@commands/points";
+import welcome from "@commands/welcome";
 
 // !discord
 jest.mock("../../src/commands/discord");
@@ -20,6 +21,10 @@ const mockPoints = points.exec as jest.Mock;
 // !roll
 jest.mock("../../src/commands/dice");
 const mockRoll = dice.exec as jest.Mock;
+
+// !welcome
+jest.mock("../../src/commands/welcome")
+const mockWelcome = welcome.exec as jest.Mock;
 
 describe("execute", () => {
   afterEach(() => {
@@ -128,6 +133,22 @@ describe("execute", () => {
 
     it('should return whatever "rollDice" returns', async () => {
       const command = dice.command;
+      const actual = await execute(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
+  });
+
+  describe("!welcome", () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.word();
+      mockWelcome.mockReturnValue(returnValue);
+    });
+
+    it('should return whatever "welcome" returns', async () => {
+      const command = welcome.command;
       const actual = await execute(command, {});
 
       expect(actual).toStrictEqual(returnValue);

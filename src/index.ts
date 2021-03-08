@@ -1,6 +1,6 @@
 import { ChatUserstate, Client } from "tmi.js";
 import execute from "@commands";
-import { config, convertMinutesToMs, splitMessage } from "@utility";
+import { config, splitMessage } from "@utility";
 import connect from "@database";
 import "./tools/intervals";
 

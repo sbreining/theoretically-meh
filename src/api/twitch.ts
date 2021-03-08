@@ -10,10 +10,8 @@ import axios from "axios";
  * @returns {Object} - A JSON object of the viewers in chat.
  */
 export async function getViewersList(): Promise<ViewerList> {
-  const {
-    twitch: { channel },
-  } = config;
-  const url = `http://tmi.twitch.tv/group/user/${channel}/chatters`;
+  const { twitch } = config;
+  const url = `http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`;
 
   const response = await axios.get(url);
 
