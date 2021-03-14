@@ -16,12 +16,12 @@ export async function addPointsByName(
   let viewer = await findByName(name);
 
   if (!viewer) {
-    viewer = await create(name, points);
+    create(name, points);
     return;
   }
 
   viewer.points += points;
-  await getRepository(Viewer).save(viewer);
+  getRepository(Viewer).save(viewer);
 }
 
 /**

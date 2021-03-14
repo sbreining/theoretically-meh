@@ -18,45 +18,80 @@ const mockGetConnection = getConnection as jest.Mock;
 jest.mock("typeorm");
 const mockGetRepository = getRepository as jest.Mock;
 
-function setReturnOfTypeOrmCalls(where: jest.Mock, viewer?: Record<string, any>) {
-  const getOne = jest.fn();
-  getOne.mockResolvedValue(viewer);
-
-  where.mockReturnValue({ getOne });
-
-  const createQueryBuilder = jest.fn();
-  createQueryBuilder.mockReturnValue({ where });
-
-  const getRepository = jest.fn();
-  getRepository.mockReturnValue({ createQueryBuilder });
-
-  mockGetConnection.mockReturnValue({ getRepository });
-}
-
 describe("Viewer Repository", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   describe("addPointsByName", () => {
+    const getOne = jest.fn();
+    let where: jest.Mock;
+    let insert: jest.Mock;
+    let save: jest.Mock;
+
     beforeEach(() => {
-      
+      where = jest.fn();
+      where.mockReturnValue({ getOne });
+
+      const createQueryBuilder = jest.fn();
+      createQueryBuilder.mockReturnValue({ where });
+
+      const getRepository = jest.fn();
+      getRepository.mockReturnValue({ createQueryBuilder });
+
+      mockGetConnection.mockReturnValue({ getRepository });
+
+      insert = jest.fn();
+      insert.mockResolvedValue({ generatedMaps: [{ id: random.number() }] });
+
+      save = jest.fn();
+
+      mockGetRepository.mockReturnValue({ insert, save });
     });
 
-    it("should create a viewer if one is not found and call save()", async () => {
-      setReturnOfTypeOrmCalls(jest.fn(), null);
+    it("should create a viewer if one is not found, save() should not be called", async () => {
+      getOne.mockResolvedValue(undefined);
 
       const username = internet.userName();
       const points = random.number();
 
       await addPointsByName(username, points);
 
+      expect(insert).toHaveBeenCalledWith({
+        name: username.toLowerCase(),
+        points,
+      });
+      expect(save).not.toHaveBeenCalled();
+    });
+
+    it("should add points to existing user, and call save()", async () => {
+      const priorPoints = random.number();
+      const viewer = {
+        id: random.number(),
+        name: internet.userName().toLowerCase(),
+        points: priorPoints,
+        created_at: null,
+      };
+
+      getOne.mockResolvedValue(viewer);
+
+      const extraPoints = random.number();
+
+      await addPointsByName(viewer.name, extraPoints);
+
+      expect(insert).not.toHaveBeenCalled();
+      expect(save).toHaveBeenCalledWith({
+        id: viewer.id,
+        name: viewer.name,
+        points: priorPoints + extraPoints,
+        created_at: null,
+      });
     });
   });
 
   describe("create", () => {
     let username: string;
-    let id;
+    let id: number;
 
     beforeEach(() => {
       username = internet.userName();
@@ -85,7 +120,7 @@ describe("Viewer Repository", () => {
 
   describe("find", () => {
     let viewer: Viewer;
-    let where;
+    let where: jest.Mock;
 
     beforeEach(() => {
       viewer = {
@@ -95,9 +130,19 @@ describe("Viewer Repository", () => {
         created_at: null,
       };
 
-      where = jest.fn();
+      const getOne = jest.fn();
+      getOne.mockResolvedValue(viewer);
 
-      setReturnOfTypeOrmCalls(where, viewer);
+      where = jest.fn();
+      where.mockReturnValue({ getOne });
+
+      const createQueryBuilder = jest.fn();
+      createQueryBuilder.mockReturnValue({ where });
+
+      const getRepository = jest.fn();
+      getRepository.mockReturnValue({ createQueryBuilder });
+
+      mockGetConnection.mockReturnValue({ getRepository });
     });
 
     it("should return a viewer object", async () => {
@@ -110,7 +155,7 @@ describe("Viewer Repository", () => {
 
   describe("findByName", () => {
     let viewer: Viewer;
-    let where;
+    let where: jest.Mock;
 
     beforeEach(() => {
       viewer = {
@@ -120,9 +165,19 @@ describe("Viewer Repository", () => {
         created_at: null,
       };
 
-      where = jest.fn();
+      const getOne = jest.fn();
+      getOne.mockResolvedValue(viewer);
 
-      setReturnOfTypeOrmCalls(where, viewer);
+      where = jest.fn();
+      where.mockReturnValue({ getOne });
+
+      const createQueryBuilder = jest.fn();
+      createQueryBuilder.mockReturnValue({ where });
+
+      const getRepository = jest.fn();
+      getRepository.mockReturnValue({ createQueryBuilder });
+
+      mockGetConnection.mockReturnValue({ getRepository });
     });
 
     it("should return a viewer object", async () => {
