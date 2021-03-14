@@ -1,24 +1,24 @@
-import { internet, random } from "faker";
-import { getRandomInteger } from "@utility";
-import points from "@commands/points";
-import { findByName, create } from "@repositories/viewer";
+import { internet, random } from 'faker';
+import { getRandomInteger } from '@utility';
+import points from '@commands/points';
+import { findByName, create } from '@repositories/viewer';
 
-jest.mock("../../src/database/repositories/viewer");
+jest.mock('../../src/database/repositories/viewer');
 const mockGetViewerByName = findByName as jest.Mock;
 const mockCreate = create as jest.Mock;
 
-describe("points", () => {
+describe('points', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should give a message explaining it could not find the points", async () => {
+  it('should give a message explaining it could not find the points', async () => {
     const msg = await points.exec();
 
-    expect(msg).toBe("Could not figure out who to find points for.");
+    expect(msg).toBe('Could not figure out who to find points for.');
   });
 
-  describe("finds viewer", () => {
+  describe('finds viewer', () => {
     let display_name: string;
     let points_: number;
 
@@ -26,7 +26,7 @@ describe("points", () => {
       display_name = internet.userName();
     });
 
-    it("should tell the display name how many points they have", async () => {
+    it('should tell the display name how many points they have', async () => {
       points_ = getRandomInteger(2, 999);
       mockGetViewerByName.mockResolvedValue({ points: points_ });
 
@@ -37,7 +37,7 @@ describe("points", () => {
       expect(msg).toBe(`${display_name} has ${points_} points!`);
     });
 
-    it("should tell the display name they have one point", async () => {
+    it('should tell the display name they have one point', async () => {
       mockGetViewerByName.mockResolvedValue({ points: 1 });
 
       const msg = await points.exec(display_name);
@@ -46,7 +46,7 @@ describe("points", () => {
     });
   });
 
-  describe("creates viewer", () => {
+  describe('creates viewer', () => {
     let name: string;
     let points_: number;
     let id: number;
@@ -60,7 +60,7 @@ describe("points", () => {
       mockCreate.mockResolvedValue({ points: points_ });
     });
 
-    it("should call create() when the viewer is not found", async () => {
+    it('should call create() when the viewer is not found', async () => {
       const msg = await points.exec(name);
 
       expect(mockGetViewerByName).toBeCalledWith(name);

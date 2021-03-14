@@ -40,5 +40,9 @@
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
   }
 }

@@ -1,8 +1,8 @@
-import { ChatUserstate, Client } from "tmi.js";
-import execute from "@commands";
-import { config, splitMessage } from "@utility";
-import connect from "@database";
-import "./tools/intervals";
+import { ChatUserstate, Client } from 'tmi.js';
+import execute from '@commands';
+import { config, splitMessage } from '@utility';
+import connect from '@database';
+import './tools/intervals';
 
 const { twitch } = config;
 
@@ -33,7 +33,7 @@ const onMessageHandler = async (
   self: boolean
 ): Promise<void> => {
   // Ignore messages from itself, or those that are not commands.
-  if (self || !message.startsWith("!")) return;
+  if (self || !message.startsWith('!')) return;
 
   const command = message.trim().slice(1);
 
@@ -45,7 +45,7 @@ const onMessageHandler = async (
   splitMessage(response).forEach((msg) => Will.say(channel, msg));
 };
 
-Will.on("connected", onConnectedHandler).on("message", onMessageHandler);
+Will.on('connected', onConnectedHandler).on('message', onMessageHandler);
 
 connect().then(() => {
   Will.connect();

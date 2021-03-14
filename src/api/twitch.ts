@@ -1,5 +1,5 @@
-import { config } from "@utility";
-import axios from "axios";
+import { config } from '@utility';
+import axios from 'axios';
 
 /**
  * Makes GET request to tmi.twitch.tv for the viewers that
@@ -15,7 +15,7 @@ export async function getViewersList(): Promise<ViewerList> {
 
   const response = await axios.get(url);
 
-  return response.data["chatters"];
+  return response.data['chatters'];
 }
 
 /**

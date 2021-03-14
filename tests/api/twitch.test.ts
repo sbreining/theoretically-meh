@@ -1,51 +1,49 @@
-import { getViewersList, getToken } from "@api/twitch";
-import { config } from "@utility";
-import axios from "axios";
+import { getViewersList, getToken } from '@api/twitch';
+import { config } from '@utility';
+import axios from 'axios';
 
-jest.mock("axios");
+jest.mock('axios');
 
-describe("Twitch API", () => {
+describe('Twitch API', () => {
   const { twitch } = config;
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("getViewersList", () => {
+  describe('getViewersList', () => {
     const getMock = axios.get as jest.Mock;
     const expectedReturn = {
-      bogus: ["name1", "name2", "name3"],
-      foobar: ["name4", "name5", "name6"],
+      bogus: ['name1', 'name2', 'name3'],
+      foobar: ['name4', 'name5', 'name6'],
     };
 
     beforeEach(() => {
       getMock.mockReturnValue({ data: { chatters: expectedReturn } });
     });
 
-    it("should call GET with the correct URL", async () => {
+    it('should call GET with the correct URL', async () => {
       await getViewersList();
 
-      expect(getMock).toHaveBeenCalledWith(
-        `http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`
-      );
+      expect(getMock).toHaveBeenCalledWith(`http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`);
     });
 
-    it("should return the chatters from the api response", async () => {
+    it('should return the chatters from the api response', async () => {
       const actualReturn = await getViewersList();
 
       expect(actualReturn).toBe(expectedReturn);
     });
   });
 
-  describe("getToken", () => {
+  describe('getToken', () => {
     const postMock = axios.post as jest.Mock;
-    const expectedReturn = { foo: "bar" };
+    const expectedReturn = { foo: 'bar' };
 
     beforeEach(() => {
       postMock.mockReturnValue({ data: expectedReturn });
     });
 
-    it("should POST to the correct URL", async () => {
+    it('should POST to the correct URL', async () => {
       await getToken();
 
       expect(postMock).toHaveBeenCalledWith(

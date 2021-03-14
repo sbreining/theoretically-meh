@@ -1,14 +1,14 @@
-import { create, findByName } from "@repositories/viewer";
-import Command from "./command";
+import { create, findByName } from '@repositories/viewer';
+import Command from './command';
 
 class Points implements Command {
-  public command = "points";
+  public command = 'points';
 
   public instruction =
-    "To find out how many points you have, simply type the" +
+    'To find out how many points you have, simply type the' +
     ' command "!points". Points are earned by remaining in' +
-    " channel every 5 minutes There are also additional" +
-    " ways, via games in chat.";
+    ' channel every 5 minutes There are also additional' +
+    ' ways, via games in chat.';
 
   /**
    * Will tell `name` how many points they have.
@@ -18,7 +18,7 @@ class Points implements Command {
    */
   public async exec(name?: string): Promise<string> {
     if (!name) {
-      return "Could not figure out who to find points for.";
+      return 'Could not figure out who to find points for.';
     }
 
     let viewer = await findByName(name);
@@ -29,7 +29,7 @@ class Points implements Command {
     const points = viewer.points;
     const is_plural = 1 === viewer.points;
 
-    return `${name} has ${points} ${is_plural ? "point" : "points"}!`;
+    return `${name} has ${points} ${is_plural ? 'point' : 'points'}!`;
   }
 }
 

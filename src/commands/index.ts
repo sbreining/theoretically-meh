@@ -1,13 +1,13 @@
-import { ChatUserstate } from "tmi.js";
-import dice from "./dice";
-import discord from "./discord";
-import howTo from "./howTo";
-import welcome from "./welcome";
-import points from "./points";
+import { ChatUserstate } from 'tmi.js';
+import dice from './dice';
+import discord from './discord';
+import howTo from './howTo';
+import welcome from './welcome';
+import points from './points';
 
-export const commands = "commands";
+export const commands = 'commands';
 const availableCommands = [dice.command, howTo.command, discord.command];
-const joinedCommands = availableCommands.join(", ");
+const joinedCommands = availableCommands.join(', ');
 const availableMessage = `The list of available commands are: ${joinedCommands}`;
 
 /**
@@ -19,11 +19,8 @@ const availableMessage = `The list of available commands are: ${joinedCommands}`
  * @return {Promise<string>} - The message, split into pieces of 500 characters, to ensure not
  *                             to reach character limit.
  */
-export default async function executeCommand(
-  command: string,
-  context: ChatUserstate
-): Promise<string> {
-  const list = command.split(" ");
+export default async function executeCommand(command: string, context: ChatUserstate): Promise<string> {
+  const list = command.split(' ');
 
   let message: string;
 
@@ -34,7 +31,7 @@ export default async function executeCommand(
 
     case dice.command:
       const sides = Number(list[1]);
-      message = dice.exec(sides, context["display-name"]);
+      message = dice.exec(sides, context['display-name']);
       break;
 
     case discord.command:
@@ -50,11 +47,11 @@ export default async function executeCommand(
       break;
 
     case points.command:
-      message = await points.exec(context["display-name"]);
+      message = await points.exec(context['display-name']);
       break;
 
     default:
-      message = "";
+      message = '';
   }
 
   return message;

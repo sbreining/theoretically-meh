@@ -1,50 +1,50 @@
-import { name, random } from "faker";
-import execute, { commands } from "@commands";
-import dice from "@commands/dice";
-import discord from "@commands/discord";
-import howTo from "@commands/howTo";
-import points from "@commands/points";
-import welcome from "@commands/welcome";
+import { name, random } from 'faker';
+import execute, { commands } from '@commands';
+import dice from '@commands/dice';
+import discord from '@commands/discord';
+import howTo from '@commands/howTo';
+import points from '@commands/points';
+import welcome from '@commands/welcome';
 
 // !discord
-jest.mock("../../src/commands/discord");
+jest.mock('../../src/commands/discord');
 const mockDiscord = discord.exec as jest.Mock;
 
 // !howTo
-jest.mock("../../src/commands/howTo");
+jest.mock('../../src/commands/howTo');
 const mockHowTo = howTo.exec as jest.Mock;
 
 // !points
-jest.mock("../../src/commands/points");
+jest.mock('../../src/commands/points');
 const mockPoints = points.exec as jest.Mock;
 
 // !roll
-jest.mock("../../src/commands/dice");
+jest.mock('../../src/commands/dice');
 const mockRoll = dice.exec as jest.Mock;
 
 // !welcome
-jest.mock("../../src/commands/welcome")
+jest.mock('../../src/commands/welcome');
 const mockWelcome = welcome.exec as jest.Mock;
 
-describe("execute", () => {
+describe('execute', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should return an empty string when the command is not recognized", async () => {
+  it('should return an empty string when the command is not recognized', async () => {
     const word = random.word();
     const actual = await execute(word, {});
 
-    expect(actual).toBe("");
+    expect(actual).toBe('');
   });
 
   it('should return whatever "splitMessage" returns', async () => {
     const actual = await execute(commands, {});
 
-    expect(actual).toContain("The list of available commands are: ");
+    expect(actual).toContain('The list of available commands are: ');
   });
 
-  describe("!discord", () => {
+  describe('!discord', () => {
     let returnValue: string;
 
     beforeEach(() => {
@@ -60,7 +60,7 @@ describe("execute", () => {
     });
   });
 
-  describe("!howTo", () => {
+  describe('!howTo', () => {
     let returnValue: string;
 
     beforeEach(() => {
@@ -70,7 +70,7 @@ describe("execute", () => {
 
     it('should call "howTo" with the command name', async () => {
       const word = random.word();
-      const command = howTo.command + " " + word;
+      const command = howTo.command + ' ' + word;
 
       await execute(command, {});
 
@@ -86,7 +86,7 @@ describe("execute", () => {
     });
   });
 
-  describe("!points", () => {
+  describe('!points', () => {
     let returnValue: string;
 
     beforeEach(() => {
@@ -94,17 +94,17 @@ describe("execute", () => {
       mockPoints.mockReturnValue(returnValue);
     });
 
-    it("shouold call points.exec() with", async () => {
+    it('shouold call points.exec() with', async () => {
       const username = name.firstName();
       const command = points.command;
 
-      await execute(command, { "display-name": username });
+      await execute(command, { 'display-name': username });
 
       expect(mockPoints).toHaveBeenCalledTimes(1);
       expect(mockPoints).toHaveBeenCalledWith(username);
     });
 
-    it("should return whatever points.exec() returns", async () => {
+    it('should return whatever points.exec() returns', async () => {
       const command = points.command;
       const actual = await execute(command, {});
 
@@ -112,7 +112,7 @@ describe("execute", () => {
     });
   });
 
-  describe("!roll", () => {
+  describe('!roll', () => {
     let returnValue: string;
 
     beforeEach(() => {
@@ -122,10 +122,10 @@ describe("execute", () => {
 
     it('should call "rollDice" with provided arguments', async () => {
       const sides = random.number();
-      const command = dice.command + " " + sides;
+      const command = dice.command + ' ' + sides;
       const firstName = name.firstName();
 
-      await execute(command, { "display-name": firstName });
+      await execute(command, { 'display-name': firstName });
 
       expect(mockRoll).toHaveBeenCalledTimes(1);
       expect(mockRoll).toHaveBeenCalledWith(sides, firstName);
@@ -139,7 +139,7 @@ describe("execute", () => {
     });
   });
 
-  describe("!welcome", () => {
+  describe('!welcome', () => {
     let returnValue: string;
 
     beforeEach(() => {

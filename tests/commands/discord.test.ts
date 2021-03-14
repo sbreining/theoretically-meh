@@ -1,11 +1,9 @@
-import discord from "@commands/discord";
+import discord from '@commands/discord';
 
-describe("discord", () => {
-  it("should return the expected message", () => {
+describe('discord', () => {
+  it('should return the expected message', () => {
     const actual = discord.exec();
 
-    expect(actual).toContain(
-      "All are welcome to join the den. Find your way in: "
-    );
+    expect(actual).toContain('All are welcome to join the den. Find your way in: ');
   });
 });

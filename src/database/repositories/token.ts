@@ -1,21 +1,17 @@
-import { getConnection } from "../index";
-import { Token } from "@entities/token";
-import { getRepository, Timestamp } from "typeorm";
+import { getConnection } from '../index';
+import { Token } from '@entities/token';
+import { getRepository } from 'typeorm';
 
 /**
  * Updates the token for the given service.
  *
  * @param {string} service - Name of the service.
  * @param {string} token - Token value to be saved.
- * @param {Timestamp} expiration - When the token expires.
+ * @param {number} expiration - When the token expires.
  * @returns {Token} - The token object.
  */
-export async function updateTokenForService(
-  service: string,
-  token: string,
-  expiration: Timestamp
-): Promise<Token> {
-  let tokenObj = await findBy("service = :service", { service });
+export async function updateTokenForService(service: string, token: string, expiration: number): Promise<Token> {
+  let tokenObj = await getTokenForService(service);
 
   tokenObj.token = token;
   tokenObj.expiration = expiration;
@@ -33,7 +29,7 @@ export async function updateTokenForService(
  * @returns {Token} - The token object.
  */
 export async function getTokenForService(service: string): Promise<Token> {
-  return await findBy("service = :service", { service });
+  return await findBy('service = :service', { service });
 }
 
 /**
@@ -44,13 +40,6 @@ export async function getTokenForService(service: string): Promise<Token> {
  * @param {Record} data - The data to be substituted in the where clause.
  * @returns {Promise} - The record of the token.
  */
-async function findBy(
-  clause: string,
-  data: Record<string, any>
-): Promise<Token> {
-  return getConnection()
-    .getRepository(Token)
-    .createQueryBuilder()
-    .where(clause, data)
-    .getOne();
+async function findBy(clause: string, data: Record<string, any>): Promise<Token> {
+  return getConnection().getRepository(Token).createQueryBuilder().where(clause, data).getOne();
 }

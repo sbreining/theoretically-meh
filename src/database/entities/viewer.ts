@@ -1,24 +1,18 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  Timestamp,
-  CreateDateColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Timestamp, CreateDateColumn } from 'typeorm';
 
 type ViewerType = { name?: string; points?: number };
 
-@Entity({ name: "viewers" })
+@Entity({ name: 'viewers' })
 export class Viewer {
   constructor(data?: ViewerType) {
     if (!data) return this;
 
-    this.name = data.name || "";
-    if ("name" in data) {
+    this.name = data.name || '';
+    if ('name' in data) {
       this.name = data.name;
     }
 
-    if ("points" in data) {
+    if ('points' in data) {
       this.points = data.points;
     }
   }

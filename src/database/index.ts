@@ -1,9 +1,4 @@
-import {
-  Connection,
-  createConnection,
-  getConnection as getTypeormConnection,
-  getConnectionOptions,
-} from 'typeorm';
+import { Connection, createConnection, getConnection as getTypeormConnection, getConnectionOptions } from 'typeorm';
 import entities from './entities';
 
 /**

@@ -1,6 +1,6 @@
-import { getViewersList } from "@api/twitch";
-import { addPointsByName } from "@repositories/viewer";
-import { convertMinutesToMs } from "@utility";
+import { getViewersList } from '@api/twitch';
+import { addPointsByName } from '@repositories/viewer';
+import { convertMinutesToMs } from '@utility';
 
 let runningIntervals: Record<string, number> = {};
 
@@ -13,13 +13,9 @@ let runningIntervals: Record<string, number> = {};
  * @param callback - The callback function for setInterval.
  * @param milliseconds - Number of milliseconds between callback execution.
  */
-export async function createInterval(
-  name: string,
-  callback: CallableFunction,
-  milliseconds: number
-): Promise<void> {
+export async function createInterval(name: string, callback: CallableFunction, milliseconds: number): Promise<void> {
   if (name in runningIntervals) {
-    throw Error("That name already exists");
+    throw Error('That name already exists');
   }
 
   runningIntervals[name] = setInterval(callback, milliseconds);
@@ -52,5 +48,5 @@ const getViewers = async () => {
     addPointsByName(viewer, 1);
   }
 };
-createInterval("viewer-points", getViewers, convertMinutesToMs(5));
+createInterval('viewer-points', getViewers, convertMinutesToMs(5));
 // stopInterval("viewer-points");

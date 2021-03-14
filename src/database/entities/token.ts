@@ -1,23 +1,17 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  Timestamp,
-  CreateDateColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
 type TokenType = { service?: string; token?: string };
 
-@Entity({ name: "tokens" })
+@Entity({ name: 'tokens' })
 export class Token {
   constructor(data?: TokenType) {
     if (!data) return this;
 
-    if ("service" in data) {
+    if ('service' in data) {
       this.service = data.service;
     }
 
-    if ("token" in data) {
+    if ('token' in data) {
       this.token = data.token;
     }
   }
@@ -25,15 +19,15 @@ export class Token {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ enum: ["TWITCH"] })
+  @Column({ enum: ['TWITCH'] })
   public service: string;
 
   @Column({ length: 256 })
   public token: string;
 
   @CreateDateColumn()
-  public expiration: Timestamp;
+  public expiration: number;
 
   @CreateDateColumn()
-  public created_at: Timestamp;
+  public created_at: number;
 }

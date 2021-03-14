@@ -1,26 +1,22 @@
-import { random } from "faker";
-import {
-  createConnection,
-  getConnectionOptions,
-  getConnection as getTypeormCon,
-} from "typeorm";
-import connect, { getConnection } from "@database";
+import { random } from 'faker';
+import { createConnection, getConnectionOptions, getConnection as getTypeormCon } from 'typeorm';
+import connect, { getConnection } from '@database';
 
-jest.mock("../../src/database/entities/viewer", () => jest.fn());
-jest.mock("../../src/database/entities/token", () => jest.fn());
+jest.mock('../../src/database/entities/viewer', () => jest.fn());
+jest.mock('../../src/database/entities/token', () => jest.fn());
 
-jest.mock("typeorm");
+jest.mock('typeorm');
 const mockCreate = createConnection as jest.Mock;
 const mockGetConnect = getConnectionOptions as jest.Mock;
 const mockGetConnection = getTypeormCon as jest.Mock;
 
-describe("Database", () => {
+describe('Database', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("connectToDb", () => {
-    it("should call both typeorm functions for setting options and creating a connection", async () => {
+  describe('connectToDb', () => {
+    it('should call both typeorm functions for setting options and creating a connection', async () => {
       await connect();
 
       expect(mockCreate).toHaveBeenCalledTimes(1);
@@ -28,7 +24,7 @@ describe("Database", () => {
     });
   });
 
-  describe("getConnection", () => {
+  describe('getConnection', () => {
     let connection;
 
     beforeEach(() => {

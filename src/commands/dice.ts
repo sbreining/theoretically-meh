@@ -1,11 +1,11 @@
-import Command from "./command";
+import Command from './command';
 
 class RollDice implements Command {
-  public command = "roll";
+  public command = 'roll';
 
   public instruction =
     'To roll dice, simply do "!roll [number]" where the' +
-    " number is optional. Rolling defaults to 20 if no number is provided.";
+    ' number is optional. Rolling defaults to 20 if no number is provided.';
 
   /**
    * Will roll a `sides` die and return the sentence telling `name` what
@@ -16,7 +16,7 @@ class RollDice implements Command {
    * @param {string} name - The name of the person who rolled.
    * @return {string} - The sentence that reads what `name` rolled.
    */
-  public exec(sides = 0, name = "You"): string {
+  public exec(sides = 0, name = 'You'): string {
     if (!sides || sides < 1) {
       sides = 20;
     }

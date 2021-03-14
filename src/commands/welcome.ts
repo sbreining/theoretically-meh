@@ -1,7 +1,7 @@
-import Command from "./command";
+import Command from './command';
 
 class Welcome implements Command {
-  public command = "welcome";
+  public command = 'welcome';
 
   public instruction = 'Simply type "!welcome"';
 
@@ -11,10 +11,12 @@ class Welcome implements Command {
    * @return {string} - The message.
    */
   public exec(): string {
-    return "Welcome to KettelBear's den. Please, feel free explore" +
-      " available commands (!commands), or check out the discord" +
-      " (!discord). Find more information below the stream," +
-      " including schedule, computer specs, follower goals, etc.";
+    return (
+      "Welcome to KettelBear's den. Please, feel free explore" +
+      ' available commands (!commands), or check out the discord' +
+      ' (!discord). Find more information below the stream,' +
+      ' including schedule, computer specs, follower goals, etc.'
+    );
   }
 }
 
