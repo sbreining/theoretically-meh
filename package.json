@@ -18,27 +18,27 @@
   "author": "Shane Breining",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "mysql": "^2.18.1",
-    "tmi.js": "^1.5.0",
-    "typeorm": "^0.2.29"
+    "tmi.js": "^1.7.5",
+    "typeorm": "^0.2.31"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^6.1.0",
+    "@rollup/plugin-typescript": "^8.2.0",
     "@types/dotenv": "^8.2.0",
-    "@types/faker": "^5.1.4",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.6",
-    "@types/tmi.js": "^1.4.2",
-    "faker": "^5.1.0",
+    "@types/faker": "^5.1.7",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.34",
+    "@types/tmi.js": "^1.7.1",
+    "faker": "^5.4.0",
     "jest": "^26.6.3",
-    "rollup": "^2.33.1",
+    "rollup": "^2.41.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript-paths": "^1.2.2",
-    "ts-jest": "^26.4.4",
-    "ts-node": "^9.0.0",
-    "tslib": "^2.0.3",
-    "typescript": "^4.0.5"
+    "ts-jest": "^26.5.3",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
   }
 }
