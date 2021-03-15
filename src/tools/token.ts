@@ -13,9 +13,9 @@ export async function twitchToken(): Promise<Token> {
 
   const now = new Date().getTime();
 
-  let fiveMinutesAgo = now - convertMinutesToMs(5);
+  let fiveMinutesFromNow = now + convertMinutesToMs(5);
 
-  if (fiveMinutesAgo > token.expiration) {
+  if (fiveMinutesFromNow > token.expiration) {
     token = await getNewToken(now);
   }
 
