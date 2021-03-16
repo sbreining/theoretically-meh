@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, Timestamp, CreateDateColumn } from 'typeorm';
 
-type ViewerType = { name?: string; points?: number };
-
 @Entity({ name: 'viewers' })
 export class Viewer {
   constructor(data?: ViewerType) {

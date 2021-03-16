@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
-type TokenType = { service?: string; token?: string };
-
 @Entity({ name: 'tokens' })
 export class Token {
   constructor(data?: TokenType) {
