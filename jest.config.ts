@@ -27,7 +27,8 @@ export default {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     "<rootDir>/src/index.ts",
-    "<rootDir>/src/database/entities/*"  // Models don't have necessarily testable code.
+    "<rootDir>/src/database/entities/*",  // Models don't have necessarily testable code.
+    "<rootDir>/src/types/*"
   ],
 
   // Indicates which provider should be used to instrument code for coverage
