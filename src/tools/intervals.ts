@@ -1,10 +1,7 @@
 import { getViewersList } from '@api/twitch';
 import { addPointsByName } from '@repositories/viewer';
-import { convertMinutesToMs } from '@utility';
 
 let runningIntervals: Record<string, number> = {};
-
-// TODO: Assess whether this is necessary.
 
 /**
  * Will map the ID of the setInterval by the name provided.
@@ -31,9 +28,10 @@ export async function stopInterval(name: string): Promise<void> {
 }
 
 /**
- *
+ * Get the list of viewers currently watching the stream, and based
+ * on what level viewer they are, add points for them.
  */
-const getViewers = async () => {
+export async function distributePointsToViewership(): Promise<void> {
   const groups = await getViewersList();
   for (const viewer of groups.broadcaster) {
     addPointsByName(viewer, 9);
@@ -48,5 +46,3 @@ const getViewers = async () => {
     addPointsByName(viewer, 1);
   }
 };
-createInterval('viewer-points', getViewers, convertMinutesToMs(5));
-// stopInterval("viewer-points");
