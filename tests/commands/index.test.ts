@@ -1,4 +1,4 @@
-import { name, random } from 'faker';
+import { datatype, name, random } from 'faker';
 import execute, { commands } from '@commands';
 import dice from '@commands/dice';
 import discord from '@commands/discord';
@@ -121,7 +121,7 @@ describe('execute', () => {
     });
 
     it('should call "rollDice" with provided arguments', async () => {
-      const sides = random.number();
+      const sides = datatype.number();
       const command = dice.command + ' ' + sides;
       const firstName = name.firstName();
 

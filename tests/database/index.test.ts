@@ -1,4 +1,4 @@
-import { random } from 'faker';
+import { datatype } from 'faker';
 import { createConnection, getConnectionOptions, getConnection as getTypeormCon } from 'typeorm';
 import connect, { getConnection } from '@database';
 
@@ -28,7 +28,7 @@ describe('Database', () => {
     let connection;
 
     beforeEach(() => {
-      connection = { id: random.number() };
+      connection = { id: datatype.number() };
 
       mockGetConnection.mockReturnValue(connection);
     });

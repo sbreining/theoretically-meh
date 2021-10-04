@@ -1,4 +1,4 @@
-import { internet, random } from 'faker';
+import { datatype, internet } from 'faker';
 import { getConnection } from '@database';
 import { Viewer } from '@entities/viewer';
 import { addPointsByName, create, find, findByName } from '@repositories/viewer';
@@ -37,7 +37,7 @@ describe('Viewer Repository', () => {
       mockGetConnection.mockReturnValue({ getRepository });
 
       insert = jest.fn();
-      insert.mockResolvedValue({ generatedMaps: [{ id: random.number() }] });
+      insert.mockResolvedValue({ generatedMaps: [{ id: datatype.number() }] });
 
       save = jest.fn();
 
@@ -48,7 +48,7 @@ describe('Viewer Repository', () => {
       getOne.mockResolvedValue(undefined);
 
       const username = internet.userName();
-      const points = random.number();
+      const points = datatype.number();
 
       await addPointsByName(username, points);
 
@@ -60,9 +60,9 @@ describe('Viewer Repository', () => {
     });
 
     it('should add points to existing user, and call save()', async () => {
-      const priorPoints = random.number();
+      const priorPoints = datatype.number();
       const viewer = {
-        id: random.number(),
+        id: datatype.number(),
         name: internet.userName().toLowerCase(),
         points: priorPoints,
         created_at: null,
@@ -70,7 +70,7 @@ describe('Viewer Repository', () => {
 
       getOne.mockResolvedValue(viewer);
 
-      const extraPoints = random.number();
+      const extraPoints = datatype.number();
 
       await addPointsByName(viewer.name, extraPoints);
 
@@ -90,7 +90,7 @@ describe('Viewer Repository', () => {
 
     beforeEach(() => {
       username = internet.userName();
-      id = random.number();
+      id = datatype.number();
 
       const insert = jest.fn();
       insert.mockResolvedValue({
@@ -119,9 +119,9 @@ describe('Viewer Repository', () => {
 
     beforeEach(() => {
       viewer = {
-        id: random.number(),
+        id: datatype.number(),
         name: internet.userName(),
-        points: random.number(),
+        points: datatype.number(),
         created_at: null,
       };
 
@@ -154,9 +154,9 @@ describe('Viewer Repository', () => {
 
     beforeEach(() => {
       viewer = {
-        id: random.number(),
+        id: datatype.number(),
         name: internet.userName(),
-        points: random.number(),
+        points: datatype.number(),
         created_at: null,
       };
 

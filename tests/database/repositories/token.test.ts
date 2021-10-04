@@ -1,4 +1,4 @@
-import { date, random } from 'faker';
+import { datatype, date } from 'faker';
 import { getConnection } from '@database';
 import { updateTokenForService, getTokenForService } from '@repositories/token';
 import { getRepository } from 'typeorm';
@@ -23,9 +23,9 @@ describe('Token Repository', () => {
 
     beforeEach(() => {
       token = {
-        id: random.number(),
+        id: datatype.number(),
         service: 'TWITCH',
-        token: random.uuid(),
+        token: datatype.uuid(),
         expiration: date.future().getTime(),
         created_at: date.past().getTime(),
       };
@@ -50,7 +50,7 @@ describe('Token Repository', () => {
     });
 
     it("should call save with the updated token model's values", async () => {
-      const tokenUuid = random.uuid();
+      const tokenUuid = datatype.uuid();
       const expiration = date.future().getTime();
 
       await updateTokenForService('TWITCH', tokenUuid, expiration);
@@ -62,7 +62,7 @@ describe('Token Repository', () => {
     });
 
     it('should return the updated token object', async () => {
-      const tokenUuid = random.uuid();
+      const tokenUuid = datatype.uuid();
       const expiration = date.future().getTime();
 
       const actual = await updateTokenForService('TWITCH', tokenUuid, expiration);
@@ -79,9 +79,9 @@ describe('Token Repository', () => {
 
     beforeEach(() => {
       token = {
-        id: random.number(),
+        id: datatype.number(),
         service: 'TWITCH',
-        token: random.uuid(),
+        token: datatype.uuid(),
         expiration: date.future().getTime(),
         created_at: date.past().getTime(),
       };

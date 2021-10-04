@@ -1,9 +1,9 @@
-import { random } from 'faker';
+import { datatype } from 'faker';
 import { getRandomInteger } from '@utility';
 
 describe('getRandomInteger', () => {
-  const min = random.number();
-  const max = random.number() + min;
+  const min = datatype.number();
+  const max = datatype.number() + min;
 
   it('should return an integer between two given values', () => {
     const actual = getRandomInteger(min, max);
