@@ -1,9 +1,9 @@
 import Command from './command';
 
 class Welcome implements Command {
-  public command = 'welcome';
+  public readonly command = 'welcome';
 
-  public instruction = 'Simply type "!welcome"';
+  public readonly instruction = 'Simply type "!welcome"';
 
   /**
    * Returns a simple message with the channel information.

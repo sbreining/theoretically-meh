@@ -1,6 +1,7 @@
 import { random } from 'faker';
 import dice from '@commands/dice';
 import discord from '@commands/discord';
+import eight from '@commands/eightBall';
 import howTo from '@commands/howTo';
 import points from '@commands/points';
 import welcome from '@commands/welcome';
@@ -28,5 +29,9 @@ describe('howTo', () => {
 
   it('should return the explanation for how to use the welcome command', () => {
     expect(howTo.exec(welcome.command)).toBe(welcome.instruction);
+  });
+
+  it('should return the explanation for how to use the 8ball command', () => {
+    expect(howTo.exec(eight.command)).toBe(eight.instruction);
   });
 });

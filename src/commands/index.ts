@@ -4,11 +4,18 @@ import discord from './discord';
 import howTo from './howTo';
 import welcome from './welcome';
 import points from './points';
+import eight from './eightBall';
 
 export const commands = 'commands';
-const availableCommands = [dice.command, howTo.command, discord.command];
-const joinedCommands = availableCommands.join(', ');
-const availableMessage = `The list of available commands are: ${joinedCommands}`;
+const availableCommands = [
+  dice.command,
+  discord.command,
+  eight.command,
+  howTo.command,
+  points.command,
+  welcome.command,
+];
+const availableMessage = `The list of available commands are: ${availableCommands.join(', ')}`;
 
 /**
  * Executes `command` and calls appropriate fucntion to handle the command. This is async,
@@ -48,6 +55,10 @@ export default async function executeCommand(command: string, context: ChatUsers
 
     case points.command:
       message = await points.exec(context['display-name']);
+      break;
+
+    case eight.command:
+      message = eight.exec(command);
       break;
 
     default:

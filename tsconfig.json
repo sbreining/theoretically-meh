@@ -12,6 +12,7 @@
       "@utility": ["src/utility"]
     },
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "esModuleInterop": true
   }
 }

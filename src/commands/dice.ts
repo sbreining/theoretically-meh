@@ -1,9 +1,9 @@
 import Command from './command';
 
 class RollDice implements Command {
-  public command = 'roll';
+  public readonly command = 'roll';
 
-  public instruction =
+  public readonly instruction =
     'To roll dice, simply do "!roll [number]" where the' +
     ' number is optional. Rolling defaults to 20 if no number is provided.';
 
