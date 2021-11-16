@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "rollup -c",
+    "migrate": "typeorm migration:run",
     "start": "node build/index.js",
     "test": "jest --coverage"
   },
