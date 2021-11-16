@@ -5,8 +5,10 @@ import entities from './entities';
  * Initiates the database connection.
  */
 export default async function connect(): Promise<void> {
-  let options = await getConnectionOptions();
-  await createConnection({ ...options, entities });
+  const options = await getConnectionOptions();
+  const migrations = ['../../migrations/*.ts']
+
+  await createConnection({ ...options, entities, migrations });
 }
 
 /**
