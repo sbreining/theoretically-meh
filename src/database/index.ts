@@ -7,8 +7,9 @@ import entities from './entities';
 export default async function connect(): Promise<void> {
   const options = await getConnectionOptions();
   const migrations = ['../../migrations/*.ts']
+  const migrationsRun = true;
 
-  await createConnection({ ...options, entities, migrations });
+  await createConnection({ ...options, entities, migrations, migrationsRun });
 }
 
 /**
