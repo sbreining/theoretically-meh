@@ -2,8 +2,12 @@ import { random } from 'faker';
 import eight from '@commands/eightBall';
 import { getRandomInteger } from '@utility';
 
+const getQuestionWord = (): string => {
+  return eight.questionWords[getRandomInteger(0, eight.questionWords.length - 1)]
+}
+
 const buildQuestion = (hasWord = true, hasMark = true): string => {
-  const word = hasWord ? eight.questionWords[getRandomInteger(0, eight.questionWords.length - 1)] : '';
+  const word = hasWord ? getQuestionWord() : '';
   const mark = hasMark ? '?' : '';
 
   return `!8ball ${word} ${random.words(5)} ${mark}`;

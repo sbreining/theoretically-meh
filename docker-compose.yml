@@ -9,11 +9,21 @@ services:
       - 3306:3306
     env_file:
       - docker.env.prod
+    volumes:
+      - ~/twitch_bot/mysql_data:/var/lib/mysql
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - db
+
+  app:
+    container_name: theoretically_meh
+    build: .
+    links:
+      - 'db:database'
     depends_on:
-      - db
+      - 'db'
