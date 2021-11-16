@@ -25,6 +25,6 @@ services:
     container_name: theoretically_meh
     build: .
     links:
-      - 'db:database'
+      - 'db_tb:database'
     depends_on:
-      - 'db'
+      - 'db_tb'
