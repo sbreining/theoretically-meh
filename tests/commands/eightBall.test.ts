@@ -10,7 +10,7 @@ const buildQuestion = (hasWord = true, hasMark = true): string => {
   const word = hasWord ? getQuestionWord() : '';
   const mark = hasMark ? '?' : '';
 
-  return `!8ball ${word} ${random.words(5)} ${mark}`;
+  return `8ball ${word} ${random.words(5)}${mark}`;
 }
 
 describe('8ball', () => {

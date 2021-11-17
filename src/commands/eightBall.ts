@@ -37,7 +37,7 @@ class EightBall implements Command {
     'Very doubtful.',
   ];
 
-  private regex = new RegExp(`^(!8ball )((${this.questionWords.join("|")}) .+\\?)$`, "i");
+  private regex = new RegExp(`^(8ball )((${this.questionWords.join("|")}) .+\\?)$`, "i");
 
   /**
    * When posing a question to the Magic 8-ball, it will return with one of
