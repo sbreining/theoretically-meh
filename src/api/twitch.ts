@@ -13,9 +13,12 @@ export async function getViewersList(): Promise<ViewerList> {
   const { twitch } = config;
   const url = `http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`;
 
-  const response = await axios.get(url);
-
-  return response.data['chatters'];
+  try {
+    const response = await axios.get(url);
+    return response.data['chatters'];
+  } catch {
+    return {} as ViewerList;
+  }
 }
 
 /**
