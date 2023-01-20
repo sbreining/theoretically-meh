@@ -10,6 +10,10 @@ import welcome from '../../src/commands/welcome';
 jest.mock('../../src/commands/discord');
 const mockDiscord = discord.exec as jest.Mock;
 
+// !discord
+jest.mock('../../src/commands/eightBall');
+const mockEight = eight.exec as jest.Mock;
+
 // !howTo
 jest.mock('../../src/commands/howTo');
 const mockHowTo = howTo.exec as jest.Mock;
@@ -150,6 +154,21 @@ describe('execute', () => {
     it('should return whatever "welcome" returns', async () => {
       const command = welcome.command;
       const actual = await execute(command, {});
+
+      expect(actual).toStrictEqual(returnValue);
+    });
+  });
+
+  describe('!8ball', () => {
+    let returnValue: string;
+
+    beforeEach(() => {
+      returnValue = random.words(5);
+      mockEight.mockReturnValue(returnValue);
+    });
+
+    it('shold return a phrase from shaking the 8-ball', async () => {
+      const actual = await execute(eight.command, {});
 
       expect(actual).toStrictEqual(returnValue);
     });

@@ -2,9 +2,9 @@ import { create, findByName } from '../database/repositories/viewer';
 import Command from './command';
 
 class Points implements Command {
-  public command = 'points';
+  public readonly command = 'points';
 
-  public instruction =
+  public readonly instruction =
     'To find out how many points you have, simply type the' +
     ' command "!points". Points are earned by remaining in' +
     ' channel every 5 minutes There are also additional' +

@@ -9,11 +9,21 @@ let mockGetViewersList = getViewersList as jest.Mock;
 jest.mock('../../src/database/repositories/viewer');
 let mockAddPoints = addPointsByName as jest.Mock;
 
-jest.useFakeTimers();
-
 describe('Interval Tools', () => {
+  beforeEach(() => {
+    // If more places start to use timer functions outside of this,
+    // turn to jest.config.js and use the following block:
+    /**
+     * module.exports = {
+     *   timers: 'legacy',
+     * };
+     */
+    jest.useFakeTimers('legacy');
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
+    jest.useRealTimers();
   });
 
   describe('distributePointsToViewership', () => {

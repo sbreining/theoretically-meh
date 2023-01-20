@@ -3,11 +3,12 @@ import dice from './dice';
 import discord from './discord';
 import welcome from './welcome';
 import points from './points';
+import eight from './eightBall';
 
 class HowTo implements Command {
-  public command = 'howTo';
+  public readonly command = 'howTo';
 
-  public instruction = 'To learn how to use a command, simply do "!howTwo [command]"';
+  public readonly instruction = 'To learn how to use a command, simply do "!howTwo [command]"';
 
   /**
    * When passed `command`, a description will be returned explaining
@@ -25,6 +26,8 @@ class HowTo implements Command {
         return welcome.instruction;
       case points.command:
         return points.instruction;
+      case eight.command:
+        return eight.instruction;
       default:
         return this.instruction;
     }

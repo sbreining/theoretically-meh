@@ -2,9 +2,9 @@ import { config } from '../utility';
 import Command from './command';
 
 class Discord implements Command {
-  public command = 'discord';
+  public readonly command = 'discord';
 
-  public instruction = 'Simply type "!discord" to see discord information';
+  public readonly instruction = 'Simply type "!discord" to see discord information';
 
   /**
    * Returns a simple message with the discord link.

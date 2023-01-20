@@ -4,14 +4,17 @@ import discord from './discord';
 import howTo from './howTo';
 import welcome from './welcome';
 import points from './points';
+import eight from './eightBall';
 
 export const commands = 'commands';
 
 const availableCommands = [
   dice.command,
-  howTo.command,
   discord.command,
+  eight.command,
+  howTo.command,
   points.command,
+  welcome.command,
 ];
 
 const joinedCommands = availableCommands.join(', ');
@@ -55,6 +58,10 @@ export default async function executeCommand(command: string, context: ChatUsers
 
     case points.command:
       message = await points.exec(context['display-name']);
+      break;
+
+    case eight.command:
+      message = eight.exec(command);
       break;
 
     default:

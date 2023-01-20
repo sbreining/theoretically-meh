@@ -7,6 +7,9 @@ import { addPointsByName } from '../database/repositories/viewer';
  */
 export async function distributePointsToViewership(): Promise<void> {
   const groups = await getViewersList();
+
+  if (Object.keys(groups).length == 0) return;
+
   for (const viewer of groups.broadcaster) {
     addPointsByName(viewer, 9);
   }
