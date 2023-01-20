@@ -18,7 +18,7 @@ describe('Interval Tools', () => {
      *   timers: 'legacy',
      * };
      */
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers();
   });
 
   afterEach(() => {

@@ -1,6 +1,6 @@
 import { random } from 'faker';
-import eight from '@commands/eightBall';
-import { getRandomInteger } from '@utility';
+import eight from '../../src/commands/eightBall';
+import { getRandomInteger } from '../../src/utility';
 
 const getQuestionWord = (): string => {
   return eight.questionWords[getRandomInteger(0, eight.questionWords.length - 1)]

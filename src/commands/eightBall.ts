@@ -1,4 +1,4 @@
-import { getRandomInteger } from '@utility';
+import { getRandomInteger } from '../utility';
 import Command from './command';
 
 class EightBall implements Command {

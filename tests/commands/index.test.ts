@@ -2,6 +2,7 @@ import { datatype, name, random } from 'faker';
 import execute, { commands } from '../../src/commands';
 import dice from '../../src/commands/dice';
 import discord from '../../src/commands/discord';
+import eight from '../../src/commands/eightBall';
 import howTo from '../../src/commands/howTo';
 import points from '../../src/commands/points';
 import welcome from '../../src/commands/welcome';
