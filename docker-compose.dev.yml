@@ -34,4 +34,4 @@ services:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
     restart: always
-    command: npm run dev:run
+    command: npm run dev

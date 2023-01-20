@@ -8,7 +8,7 @@ class EightBall implements Command {
     'Start with !8ball, the follow it with a question that includes a question word'
     + ' and ends with a "?"';
 
-  public readonly questionWords = ['will', 'is', 'do', 'does', 'can'];
+  public readonly questionWords = ['are', 'am', 'will', 'is', 'did', 'do', 'does', 'can'];
 
   public readonly badUsage =
     '8ball only answers questions, make sure to include a question word'

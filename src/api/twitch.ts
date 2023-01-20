@@ -1,6 +1,22 @@
 import { config } from '../utility';
 import axios from 'axios';
 
+type ViewerList = {
+  broadcaster: Array<string>;
+  vips: Array<string>;
+  moderators: Array<string>;
+  staff: Array<string>;
+  admins: Array<string>;
+  global_mods: Array<string>;
+  viewers: Array<string>;
+};
+
+type Token = {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+};
+
 /**
  * Makes GET request to tmi.twitch.tv for the viewers that
  * are currently in chat. This endpoint is currently heavily
@@ -9,7 +25,7 @@ import axios from 'axios';
  *
  * @returns {Object} - A JSON object of the viewers in chat.
  */
-export async function getViewersList(): Promise<any> {
+export async function getViewersList(): Promise<ViewerList> {
   const { twitch } = config;
   const url = `http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`;
 
@@ -26,7 +42,7 @@ export async function getViewersList(): Promise<any> {
  *
  * @returns {Token} - An object containing the token information.
  */
-export async function getToken(): Promise<any> {
+export async function getToken(): Promise<Token> {
   const { twitch } = config;
   const url = `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`;
 

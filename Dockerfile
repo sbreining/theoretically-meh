@@ -1,4 +1,4 @@
-FROM node:16-alpine AS build_stage
+FROM node:16-alpine AS build
 
 ARG NODE_ENV=dev
 ENV NODE_ENV=${NODE_ENV}
@@ -24,7 +24,7 @@ COPY package*.json .
 
 RUN npm ci --only=production
 
-COPY --from=build_stage /usr/src/app/build ./build
+COPY --from=build /usr/src/app/build ./build
 COPY ./.env .
 
 CMD ["node", "build/index.js"]

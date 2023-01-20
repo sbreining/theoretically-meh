@@ -5,26 +5,14 @@ import { config, convertMinutesToMs, splitMessage } from './utility';
 import DataSource from './database';
 import { distributePointsToViewership } from './tools/intervals';
 
-const { twitch } = config;
-
-const options = {
-  channels: [twitch.channel],
-  connection: {
-    secure: true,
-    reconnect: true,
-  },
-  identity: {
-    username: twitch.username,
-    password: twitch.password,
-  },
-};
+const { isProduction, twitch } = config;
 
 // I miss you, Will. Hopefully you're resting well big guy. Yes, that is a fat joke.
-const Will = Client(options);
+const Will = Client(twitch.config);
 
 const onConnectedHandler = (address: string, port: number): void => {
   console.log(`* Connected to ${address}:${port}`);
-  Will.action(twitch.channel, ' is here now, and feeling "meh".');
+  if (isProduction) Will.action(twitch.channel, ' is here now, and feeling "meh".');
 };
 
 const onMessageHandler = async (
