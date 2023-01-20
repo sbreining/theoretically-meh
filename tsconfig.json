@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@api/*": ["src/api/*"],
-      "@commands": ["src/commands"],
-      "@commands/*": ["src/commands/*"],
-      "@database": ["src/database"],
-      "@entities/*": ["src/database/entities/*"],
-      "@repositories/*": ["src/database/repositories/*"],
-      "@tools/*": ["src/tools/*"],
-      "@utility": ["src/utility"]
-    },
+    "target": "ES6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "rootDir": "./src",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  }
+    "experimentalDecorators": true,
+    "removeComments": true
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["coverage", "node_modules"]
 }

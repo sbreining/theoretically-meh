@@ -6,7 +6,14 @@ import welcome from './welcome';
 import points from './points';
 
 export const commands = 'commands';
-const availableCommands = [dice.command, howTo.command, discord.command];
+
+const availableCommands = [
+  dice.command,
+  howTo.command,
+  discord.command,
+  points.command,
+];
+
 const joinedCommands = availableCommands.join(', ');
 const availableMessage = `The list of available commands are: ${joinedCommands}`;
 

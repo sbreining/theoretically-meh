@@ -1,5 +1,5 @@
-import { getViewersList, getToken } from '@api/twitch';
-import { config } from '@utility';
+import { getViewersList, getToken } from '../../src/api/twitch';
+import { config } from '../../src/utility';
 import axios from 'axios';
 
 jest.mock('axios');

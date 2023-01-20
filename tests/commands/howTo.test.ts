@@ -1,9 +1,9 @@
 import { random } from 'faker';
-import dice from '@commands/dice';
-import discord from '@commands/discord';
-import howTo from '@commands/howTo';
-import points from '@commands/points';
-import welcome from '@commands/welcome';
+import dice from '../../src/commands/dice';
+import discord from '../../src/commands/discord';
+import howTo from '../../src/commands/howTo';
+import points from '../../src/commands/points';
+import welcome from '../../src/commands/welcome';
 
 describe('howTo', () => {
   it('should return the explanation for how to roll the dice', () => {

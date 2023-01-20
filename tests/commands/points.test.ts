@@ -1,7 +1,7 @@
-import { internet, random } from 'faker';
-import { getRandomInteger } from '@utility';
-import points from '@commands/points';
-import { findByName, create } from '@repositories/viewer';
+import { internet, datatype } from 'faker';
+import { getRandomInteger } from '../../src/utility';
+import points from '../../src/commands/points';
+import { findByName, create } from '../../src/database/repositories/viewer';
 
 jest.mock('../../src/database/repositories/viewer');
 const mockGetViewerByName = findByName as jest.Mock;
@@ -54,7 +54,7 @@ describe('points', () => {
     beforeEach(() => {
       name = internet.userName();
       points_ = 1;
-      id = random.number();
+      id = datatype.number();
 
       mockGetViewerByName.mockResolvedValue(null);
       mockCreate.mockResolvedValue({ points: points_ });

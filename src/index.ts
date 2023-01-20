@@ -1,8 +1,9 @@
+import "reflect-metadata";
 import { ChatUserstate, Client } from 'tmi.js';
-import execute from '@commands';
-import { config, convertMinutesToMs, splitMessage } from '@utility';
-import connect from '@database';
-import { createInterval, distributePointsToViewership } from './tools/intervals';
+import execute from './commands';
+import { config, convertMinutesToMs, splitMessage } from './utility';
+import DataSource from './database';
+import { distributePointsToViewership } from './tools/intervals';
 
 const { twitch } = config;
 
@@ -47,11 +48,13 @@ const onMessageHandler = async (
 
 Will.on('connected', onConnectedHandler).on('message', onMessageHandler);
 
-connect().then(() => {
-  Will.connect();
+DataSource.initialize()
+  .then(() => {
+    Will.connect();
 
-  // For now, this interval will be here so long as I'm running the bot locally.
-  // When this is run on a server, and not stopping, replace this with the
-  // online check interval.
-  createInterval('viewer-points', distributePointsToViewership, convertMinutesToMs(5));
-});
+    // For now, this interval will be here so long as I'm running the bot locally.
+    // When this is run on a server, and not stopping, replace this with the
+    // online check interval.
+    setInterval(distributePointsToViewership, convertMinutesToMs(5));
+  })
+  .catch((error) => console.error(error.message));

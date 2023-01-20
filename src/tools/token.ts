@@ -1,7 +1,7 @@
-import { getToken } from '@api/twitch';
-import { Token } from '@entities/token';
-import { getTokenForService, updateTokenForService } from '@repositories/token';
-import { convertMinutesToMs } from '@utility';
+import { getToken } from '../api/twitch';
+import { Token } from '../database/entities/token';
+import { getTokenForService, updateTokenForService } from '../database/repositories/token';
+import { convertMinutesToMs } from '../utility';
 
 /**
  * Asynchronous function that returns the Token record

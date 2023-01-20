@@ -1,6 +1,4 @@
-import { getConnection } from '../index';
-import { Token } from '@entities/token';
-import { getRepository } from 'typeorm';
+import { Token } from '../entities/token';
 
 /**
  * Updates the token for the given service.
@@ -17,7 +15,7 @@ export async function updateTokenForService(service: string, token: string, expi
   tokenObj.expiration = expiration;
 
   // Don't need to await, just return the token.
-  getRepository(Token).save(tokenObj);
+  tokenObj.save()
 
   return tokenObj;
 }
@@ -29,17 +27,5 @@ export async function updateTokenForService(service: string, token: string, expi
  * @returns {Token} - The token object.
  */
 export async function getTokenForService(service: string): Promise<Token> {
-  return await findBy('service = :service', { service });
-}
-
-/**
- * Private function to module, that handles the where clause and data
- * substitution.
- *
- * @param {string} clause - The where clause for the query.
- * @param {Record} data - The data to be substituted in the where clause.
- * @returns {Promise} - The record of the token.
- */
-async function findBy(clause: string, data: Record<string, any>): Promise<Token> {
-  return getConnection().getRepository(Token).createQueryBuilder().where(clause, data).getOne();
+  return await Token.findOneBy({ service });
 }

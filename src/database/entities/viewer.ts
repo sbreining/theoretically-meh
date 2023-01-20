@@ -1,20 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, Timestamp, CreateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from 'typeorm';
 
-@Entity({ name: 'viewers' })
-export class Viewer {
-  constructor(data?: ViewerType) {
-    if (!data) return this;
-
-    this.name = data.name || '';
-    if ('name' in data) {
-      this.name = data.name;
-    }
-
-    if ('points' in data) {
-      this.points = data.points;
-    }
-  }
-
+@Entity()
+export class Viewer extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -25,5 +18,5 @@ export class Viewer {
   public points: number;
 
   @CreateDateColumn()
-  public created_at: Timestamp;
+  public created_at: number;
 }

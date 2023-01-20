@@ -1,6 +1,4 @@
-import { getConnection } from '../index';
-import { Viewer } from '@entities/viewer';
-import { getRepository } from 'typeorm';
+import { Viewer } from '../entities/viewer';
 
 /**
  * Add the number of points to the specified viewer's profile.
@@ -18,7 +16,7 @@ export async function addPointsByName(name: string, points: number): Promise<voi
   }
 
   viewer.points += points;
-  getRepository(Viewer).save(viewer);
+  viewer.save();
 }
 
 /**
@@ -28,13 +26,15 @@ export async function addPointsByName(name: string, points: number): Promise<voi
  * @returns {Promise<number>} - The ID of the newly inserted row.
  */
 export async function create(name: string, points = 1): Promise<Viewer> {
-  let viewer = new Viewer({ name: name.toLowerCase(), points });
+  let viewer = new Viewer();
+  viewer.name = name.toLocaleLowerCase();
+  viewer.points = points;
 
-  let result = await getRepository(Viewer).insert(viewer);
+  let result = await viewer.save();
 
   // After insert, just update the id and created_at from the query.
-  viewer.id = result.generatedMaps[0].id;
-  viewer.created_at = result.generatedMaps[0].created_at;
+  viewer.id = result.id;
+  viewer.created_at = result.created_at;
 
   return viewer;
 }
@@ -46,7 +46,7 @@ export async function create(name: string, points = 1): Promise<Viewer> {
  * @returns {Promise<Viewer>} - The viewer record.
  */
 export async function find(id: number): Promise<Viewer> {
-  return await findBy('id = :id', { id });
+  return await Viewer.findOneBy({ id });
 }
 
 /**
@@ -56,17 +56,5 @@ export async function find(id: number): Promise<Viewer> {
  * @returns {Promise<Viewer} - The viewer record.
  */
 export async function findByName(name: string): Promise<Viewer> {
-  return await findBy('name = :name', { name: name.toLowerCase() });
-}
-
-/**
- * Private function to module, that handles the where clause and data
- * substitution.
- *
- * @param {string} clause - The where clause for the query.
- * @param {Record} data - The data to be substituted in the where clause.
- * @returns {Promise} - The record of the viewer.
- */
-async function findBy(clause: string, data: Record<string, any>): Promise<Viewer> {
-  return getConnection().getRepository(Viewer).createQueryBuilder().where(clause, data).getOne();
+  return await Viewer.findOneBy({ name: name.toLowerCase() });
 }

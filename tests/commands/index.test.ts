@@ -1,10 +1,10 @@
-import { name, random } from 'faker';
-import execute, { commands } from '@commands';
-import dice from '@commands/dice';
-import discord from '@commands/discord';
-import howTo from '@commands/howTo';
-import points from '@commands/points';
-import welcome from '@commands/welcome';
+import { datatype, name, random } from 'faker';
+import execute, { commands } from '../../src/commands';
+import dice from '../../src/commands/dice';
+import discord from '../../src/commands/discord';
+import howTo from '../../src/commands/howTo';
+import points from '../../src/commands/points';
+import welcome from '../../src/commands/welcome';
 
 // !discord
 jest.mock('../../src/commands/discord');
@@ -121,7 +121,7 @@ describe('execute', () => {
     });
 
     it('should call "rollDice" with provided arguments', async () => {
-      const sides = random.number();
+      const sides = datatype.number();
       const command = dice.command + ' ' + sides;
       const firstName = name.firstName();
 

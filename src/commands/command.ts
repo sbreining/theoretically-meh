@@ -15,7 +15,7 @@ export default interface Command {
    * is entered in chat.
    *
    * @param {Array<any>} args - If any are necessary
-   * @returns {string|Promise<string} - The string response.
+   * @returns {string|Promise<string>} - The string response.
    */
   exec(...args: any[]): string | Promise<string>;
 }

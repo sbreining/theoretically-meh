@@ -1,4 +1,4 @@
-import { config } from '@utility';
+import { config } from '../utility';
 import axios from 'axios';
 
 /**
@@ -9,7 +9,7 @@ import axios from 'axios';
  *
  * @returns {Object} - A JSON object of the viewers in chat.
  */
-export async function getViewersList(): Promise<ViewerList> {
+export async function getViewersList(): Promise<any> {
   const { twitch } = config;
   const url = `http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`;
 
@@ -23,7 +23,7 @@ export async function getViewersList(): Promise<ViewerList> {
  *
  * @returns {Token} - An object containing the token information.
  */
-export async function getToken(): Promise<Token> {
+export async function getToken(): Promise<any> {
   const { twitch } = config;
   const url = `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`;
 

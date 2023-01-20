@@ -1,3 +1,4 @@
+
 version: "3.8"
 
 services:
@@ -8,8 +9,6 @@ services:
       - 5432:5432
     env_file:
       - docker.env.prod
-    volumes:
-      - /data:/var/lib/postgresql/data
 
   pg-admin:
     image: dpage/pgadmin4
@@ -24,10 +23,15 @@ services:
       - postgres:database
 
   application:
-    build:
-      context: .
-      target: prod
-    links:
-      - postgres:database
     depends_on:
       - postgres
+    links:
+      - postgres:database
+    build:
+      context: .
+      target: build
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    command: npm run dev:run

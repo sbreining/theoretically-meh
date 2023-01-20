@@ -1,5 +1,5 @@
-import { name, random } from 'faker';
-import dice from '@commands/dice';
+import { name, datatype } from 'faker';
+import dice from '../../src/commands/dice';
 
 const getValueRolled = (message: string): number => {
   return Number(message.split(' ')[3].slice(0, -1));
@@ -18,7 +18,7 @@ describe('rollDice', () => {
   });
 
   it('should roll between 0 and a number provided', () => {
-    const val = random.number();
+    const val = datatype.number();
     const rolled = getValueRolled(dice.exec(val));
 
     expect(rolled).toBeLessThanOrEqual(val);

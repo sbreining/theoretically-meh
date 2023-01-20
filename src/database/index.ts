@@ -1,19 +1,13 @@
-import { Connection, createConnection, getConnection as getTypeormConnection, getConnectionOptions } from 'typeorm';
+import { DataSource, DataSourceOptions } from "typeorm"
 import entities from './entities';
+import { config } from '../utility';
 
-/**
- * Initiates the database connection.
- */
-export default async function connect(): Promise<void> {
-  let options = await getConnectionOptions();
-  await createConnection({ ...options, entities });
-}
+const { isProduction, database_config } = config;
 
-/**
- * A simple wrapper function for `getConnection` in typeorm.
- *
- * @returns {Connection} - The connection to the database.
- */
-export function getConnection(): Connection {
-  return getTypeormConnection();
-}
+export default new DataSource({
+  ...(database_config as DataSourceOptions),
+  logging: !isProduction,
+  entities,
+  subscribers: [],
+  migrations: [],
+});
