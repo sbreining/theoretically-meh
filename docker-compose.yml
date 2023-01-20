@@ -9,7 +9,7 @@ services:
     env_file:
       - docker.env.prod
     volumes:
-      - /data:/var/lib/postgresql/data
+      - ~/postgres_data:/var/lib/postgresql/data
 
   pg-admin:
     image: dpage/pgadmin4
