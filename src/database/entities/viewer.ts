@@ -14,9 +14,12 @@ export class Viewer extends BaseEntity {
   @Column({ length: 25 })
   public name: string;
 
-  @Column()
+  @Column({ nullable: true })
+  public broadcaster_id: string;
+
+  @Column({ default: 0 })
   public points: number;
 
   @CreateDateColumn()
-  public created_at: number;
+  public created_at: Date;
 }

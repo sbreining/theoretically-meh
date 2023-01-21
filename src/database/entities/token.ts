@@ -3,23 +3,32 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+
+const SERVICE_ENUM = ['TWITCH', 'TWITCH_USER'];
 
 @Entity()
 export class Token extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ enum: ['TWITCH'] })
+  @Column({ enum: SERVICE_ENUM })
   public service: string;
 
-  @Column({ length: 256 })
-  public token: string;
+  @Column({ length: 256, nullable: true })
+  public access_token: string;
+
+  @Column({ length: 256, nullable: true })
+  public refresh_token: string;
+
+  @Column({ type: 'timestamptz' })
+  public expiration: Date;
 
   @CreateDateColumn()
-  public expiration: number;
+  public created_at: Date;
 
-  @CreateDateColumn()
-  public created_at: number;
+  @UpdateDateColumn()
+  public updated_at: Date;
 }

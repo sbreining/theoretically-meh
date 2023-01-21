@@ -8,7 +8,7 @@ import eight from './eightBall';
 class HowTo implements Command {
   public readonly command = 'howTo';
 
-  public readonly instruction = 'To learn how to use a command, simply do "!howTwo [command]"';
+  public readonly instruction = 'To learn how to use a command, simply do "!howTo [command]"';
 
   /**
    * When passed `command`, a description will be returned explaining
