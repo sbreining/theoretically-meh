@@ -1,4 +1,4 @@
-import { random } from 'faker';
+import { faker } from '@faker-js/faker';
 import eight from '../../src/commands/eightBall';
 import { getRandomInteger } from '../../src/utility';
 
@@ -10,7 +10,7 @@ const buildQuestion = (hasWord = true, hasMark = true): string => {
   const word = hasWord ? getQuestionWord() : '';
   const mark = hasMark ? '?' : '';
 
-  return `8ball ${word} ${random.words(5)}${mark}`;
+  return `8ball ${word} ${faker.random.words(5)}${mark}`;
 }
 
 describe('8ball', () => {

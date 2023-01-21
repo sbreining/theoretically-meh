@@ -1,8 +1,8 @@
-import { datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 import { convertMinutesToMs } from '../../src/utility';
 
 describe('convertMinutesToMs', () => {
-  let minutes = Math.floor(datatype.number());
+  let minutes = Math.floor(faker.datatype.number());
 
   it('should convert any given number of minutes into ms', () => {
     const actual = convertMinutesToMs(minutes);

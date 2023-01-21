@@ -1,4 +1,4 @@
-import { random } from 'faker';
+import { faker } from '@faker-js/faker';
 import dice from '../../src/commands/dice';
 import discord from '../../src/commands/discord';
 import eight from '../../src/commands/eightBall';
@@ -16,7 +16,7 @@ describe('howTo', () => {
   });
 
   it('should return the explanation for how to use howTo for any random word', () => {
-    expect(howTo.exec(random.word())).toBe(howTo.instruction);
+    expect(howTo.exec(faker.random.word())).toBe(howTo.instruction);
   });
 
   it('should return the explanation for how to use howTo for no word', () => {

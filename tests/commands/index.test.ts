@@ -1,4 +1,4 @@
-import { datatype, name, random } from 'faker';
+import { faker } from '@faker-js/faker';
 import execute, { commands } from '../../src/commands';
 import dice from '../../src/commands/dice';
 import discord from '../../src/commands/discord';
@@ -37,7 +37,7 @@ describe('execute', () => {
   });
 
   it('should return an empty string when the command is not recognized', async () => {
-    const word = random.word();
+    const word = faker.random.word();
     const actual = await execute(word, {});
 
     expect(actual).toBe('');
@@ -53,7 +53,7 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.word();
+      returnValue = faker.random.word();
       mockDiscord.mockReturnValue(returnValue);
     });
 
@@ -69,12 +69,12 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.word();
+      returnValue = faker.random.word();
       mockHowTo.mockReturnValue(returnValue);
     });
 
     it('should call "howTo" with the command name', async () => {
-      const word = random.word();
+      const word = faker.random.word();
       const command = howTo.command + ' ' + word;
 
       await execute(command, {});
@@ -95,12 +95,12 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.word();
+      returnValue = faker.random.word();
       mockPoints.mockReturnValue(returnValue);
     });
 
     it('shouold call points.exec() with', async () => {
-      const username = name.firstName();
+      const username = faker.name.firstName();
       const command = points.command;
 
       await execute(command, { 'display-name': username });
@@ -121,14 +121,14 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.word();
+      returnValue = faker.random.word();
       mockRoll.mockReturnValue(returnValue);
     });
 
     it('should call "rollDice" with provided arguments', async () => {
-      const sides = datatype.number();
+      const sides = faker.datatype.number();
       const command = dice.command + ' ' + sides;
-      const firstName = name.firstName();
+      const firstName = faker.name.firstName();
 
       await execute(command, { 'display-name': firstName });
 
@@ -148,7 +148,7 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.word();
+      returnValue = faker.random.word();
       mockWelcome.mockReturnValue(returnValue);
     });
 
@@ -164,7 +164,7 @@ describe('execute', () => {
     let returnValue: string;
 
     beforeEach(() => {
-      returnValue = random.words(5);
+      returnValue = faker.random.words(5);
       mockEight.mockReturnValue(returnValue);
     });
 

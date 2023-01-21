@@ -1,7 +1,7 @@
+import { faker } from '@faker-js/faker';
 import { getViewersList } from '../../src/api/twitch';
 import { addPointsByName } from '../../src/database/repositories/viewer';
 import { distributePointsToViewership } from '../../src/tools/intervals';
-import { internet } from 'faker';
 
 jest.mock('../../src/api/twitch');
 let mockGetViewersList = getViewersList as jest.Mock;
@@ -29,10 +29,10 @@ describe('Interval Tools', () => {
   describe('distributePointsToViewership', () => {
     beforeEach(() => {
       const groups = {
-        broadcaster: [internet.userName(), internet.userName()],
-        vips: [internet.userName(), internet.userName()],
-        moderators: [internet.userName(), internet.userName()],
-        viewers: [internet.userName(), internet.userName()],
+        broadcaster: [faker.internet.userName(), faker.internet.userName()],
+        vips: [faker.internet.userName(), faker.internet.userName()],
+        moderators: [faker.internet.userName(), faker.internet.userName()],
+        viewers: [faker.internet.userName(), faker.internet.userName()],
       };
 
       mockGetViewersList.mockResolvedValue(groups);

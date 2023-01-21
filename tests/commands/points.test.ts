@@ -1,4 +1,4 @@
-import { internet, datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 import { getRandomInteger } from '../../src/utility';
 import points from '../../src/commands/points';
 import { findByName, create } from '../../src/database/repositories/viewer';
@@ -23,7 +23,7 @@ describe('points', () => {
     let points_: number;
 
     beforeEach(() => {
-      display_name = internet.userName();
+      display_name = faker.internet.userName();
     });
 
     it('should tell the display name how many points they have', async () => {
@@ -52,9 +52,9 @@ describe('points', () => {
     let id: number;
 
     beforeEach(() => {
-      name = internet.userName();
+      name = faker.internet.userName();
       points_ = 1;
-      id = datatype.number();
+      id = faker.datatype.number();
 
       mockGetViewerByName.mockResolvedValue(null);
       mockCreate.mockResolvedValue({ points: points_ });

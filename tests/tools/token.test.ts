@@ -2,7 +2,7 @@ import { getToken } from '../../src/api/twitch';
 import { getTokenForService, updateTokenForService } from '../../src/database/repositories/token';
 import { twitchToken } from '../../src/tools/token';
 import { convertMinutesToMs } from '../../src/utility';
-import { date, datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 
 jest.mock('../../src/api/twitch');
 const mockGet = getToken as jest.Mock;
@@ -22,16 +22,16 @@ describe('Token', () => {
 
     beforeEach(() => {
       token = {
-        id: datatype.number(),
+        id: faker.datatype.number(),
         service: 'TWITCH',
-        token: datatype.uuid(),
+        token: faker.datatype.uuid(),
         expiration: new Date().getTime() + convertMinutesToMs(20),
-        created_at: date.past(),
+        created_at: faker.date.past(),
       };
 
       mockGetToken.mockResolvedValue(token);
 
-      newToken = datatype.uuid();
+      newToken = faker.datatype.uuid();
       let twitchResponse = { access_token: newToken, expires_in: convertMinutesToMs(36000) };
 
       mockGet.mockResolvedValue(twitchResponse);

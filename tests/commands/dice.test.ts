@@ -1,4 +1,4 @@
-import { name, datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 import dice from '../../src/commands/dice';
 
 const getValueRolled = (message: string): number => {
@@ -18,7 +18,7 @@ describe('rollDice', () => {
   });
 
   it('should roll between 0 and a number provided', () => {
-    const val = datatype.number();
+    const val = faker.datatype.number();
     const rolled = getValueRolled(dice.exec(val));
 
     expect(rolled).toBeLessThanOrEqual(val);
@@ -40,7 +40,7 @@ describe('rollDice', () => {
   });
 
   it('shoud return the name provided in the message', () => {
-    const username = name.firstName();
+    const username = faker.name.firstName();
     const actual = getName(dice.exec(2, username));
 
     expect(actual).toBe(username);
