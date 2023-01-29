@@ -11,3 +11,7 @@ const MILLISECONDS_PER_SECOND = 1000;
 export function convertMinutesToMs(minutes: number): number {
   return minutes * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
 }
+
+export function addSecondsToDate(date: Date, seconds: number): Date {
+  return new Date(date.getTime() + seconds * 1000);
+}

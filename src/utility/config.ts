@@ -8,6 +8,9 @@ export default {
     channel: process.env.TWITCH_CHANNEL,
     client: process.env.TWITCH_CLIENT,
     secret: process.env.TWITCH_SECRET,
+    code: process.env.TWITCH_CODE,
+    broadcaster: process.env.TWITCH_BROADCASTER,
+    scopes: process.env.TWITCH_REQUIRED_SCOPES,
     config: {
       channels:[process.env.TWITCH_CHANNEL],
       connection: { secure: true, reconnect: true },

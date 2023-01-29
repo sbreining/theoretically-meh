@@ -3,7 +3,7 @@ import { ChatUserstate, Client } from 'tmi.js';
 import execute from './commands';
 import { config, convertMinutesToMs, splitMessage } from './utility';
 import DataSource from './database';
-import { distributePointsToViewership } from './tools/intervals';
+import { distributePointsToViewership } from './utility/intervals';
 
 const { isProduction, twitch } = config;
 
@@ -36,13 +36,15 @@ const onMessageHandler = async (
 
 Will.on('connected', onConnectedHandler).on('message', onMessageHandler);
 
-DataSource.initialize()
-  .then(() => {
-    Will.connect();
+const initializationHandler = () => {
+  Will.connect();
 
-    // For now, this interval will be here so long as I'm running the bot locally.
-    // When this is run on a server, and not stopping, replace this with the
-    // online check interval.
-    setInterval(distributePointsToViewership, convertMinutesToMs(5));
-  })
+  // For now, this interval will be here so long as I'm running the bot locally.
+  // When this is run on a server, and not stopping, replace this with the
+  // online check interval.
+  setInterval(distributePointsToViewership, convertMinutesToMs(5));
+}
+
+DataSource.initialize()
+  .then(initializationHandler)
   .catch((error) => console.error(error.message));

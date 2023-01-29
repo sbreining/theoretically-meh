@@ -1,5 +1,5 @@
-import { getViewersList, getToken } from '../../src/api/twitch';
-import { config } from '../../src/utility';
+import { getViewersList, requestTwitchAppAccess } from '../../../src/api/twitch';
+import { config } from '../../../src/utility';
 import axios from 'axios';
 
 jest.mock('axios');
@@ -44,7 +44,7 @@ describe('Twitch API', () => {
     });
 
     it('should POST to the correct URL', async () => {
-      await getToken();
+      await requestTwitchAppAccess();
 
       expect(postMock).toHaveBeenCalledWith(
         `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`
@@ -52,7 +52,7 @@ describe('Twitch API', () => {
     });
 
     it("should return the body of the response contained in the 'data' key", async () => {
-      const actualReturn = await getToken();
+      const actualReturn = await requestTwitchAppAccess();
 
       expect(actualReturn).toBe(expectedReturn);
     });

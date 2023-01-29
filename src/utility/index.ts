@@ -1,6 +1,12 @@
 import config from './config';
 import { getRandomInteger } from './number';
 import { splitMessage } from './string';
-import { convertMinutesToMs } from './time';
+import { addSecondsToDate, convertMinutesToMs } from './time';
 
-export { config, convertMinutesToMs, getRandomInteger, splitMessage };
+export {
+  addSecondsToDate,
+  config,
+  convertMinutesToMs,
+  getRandomInteger,
+  splitMessage
+};

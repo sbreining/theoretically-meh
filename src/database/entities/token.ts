@@ -7,14 +7,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-const SERVICE_ENUM = ['TWITCH', 'TWITCH_USER'];
-
 @Entity()
 export class Token extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ enum: SERVICE_ENUM })
+  @Column({ comment: 'Can be a service, or a streamer name' })
   public service: string;
 
   @Column({ length: 256, nullable: true })

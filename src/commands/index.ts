@@ -1,10 +1,11 @@
 import { ChatUserstate } from 'tmi.js';
 import dice from './dice';
 import discord from './discord';
-import howTo from './howTo';
-import welcome from './welcome';
-import points from './points';
 import eight from './eightBall';
+import howTo from './howTo';
+import points from './points';
+import title from './title';
+import welcome from './welcome';
 
 export const commands = 'commands';
 
@@ -48,20 +49,24 @@ export default async function executeCommand(command: string, context: ChatUsers
       message = discord.exec();
       break;
 
-    case howTo.command:
-      message = howTo.exec(list[1]);
+    case eight.command:
+      message = eight.exec(command);
       break;
 
-    case welcome.command:
-      message = welcome.exec();
+    case howTo.command:
+      message = howTo.exec(list[1]);
       break;
 
     case points.command:
       message = await points.exec(context['display-name']);
       break;
 
-    case eight.command:
-      message = eight.exec(command);
+    case title.command:
+      message = await title.exec(command, context);
+      break;
+
+    case welcome.command:
+      message = welcome.exec();
       break;
 
     default:
