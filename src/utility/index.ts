@@ -1,12 +1,14 @@
-import config from './config';
-import { getRandomInteger } from './number';
-import { splitMessage } from './string';
-import { addSecondsToDate, convertMinutesToMs } from './time';
+import c from './config';
+import * as Number from './number';
+import * as String from './string';
+import * as Time from './time';
+import * as Web from './web';
 
-export {
-  addSecondsToDate,
-  config,
-  convertMinutesToMs,
-  getRandomInteger,
-  splitMessage
+export const config = c;
+
+export default {
+  Number,
+  String,
+  Time,
+  Web
 };

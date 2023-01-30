@@ -1,4 +1,4 @@
-import { getViewersList } from '../api/twitch';
+import Twitch from '../api/twitch';
 import { addPointsByName } from '../database/repositories/viewer';
 
 /**
@@ -6,7 +6,7 @@ import { addPointsByName } from '../database/repositories/viewer';
  * on what level viewer they are, add points for them.
  */
 export async function distributePointsToViewership(): Promise<void> {
-  const groups = await getViewersList();
+  const groups = await Twitch.User.getViewersList();
 
   if (Object.keys(groups).length == 0) return;
 

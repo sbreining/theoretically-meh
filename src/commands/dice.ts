@@ -4,8 +4,8 @@ class RollDice implements Command {
   public readonly command = 'roll';
 
   public readonly instruction =
-    'To roll dice, simply do "!roll [number]" where the' +
-    ' number is optional. Rolling defaults to 20 if no number is provided.';
+    'To roll dice, simply do "!roll [number]" where the number is optional.' +
+    ' Rolling defaults to 20 if no number is provided.';
 
   /**
    * Will roll a `sides` die and return the sentence telling `name` what

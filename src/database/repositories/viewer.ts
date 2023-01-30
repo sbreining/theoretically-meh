@@ -7,7 +7,10 @@ import { Viewer } from '../entities/viewer';
  * @param {number} points - The number of points to add.
  * @returns {Promise} - Nothing is returned.
  */
-export async function addPointsByName(name: string, points: number): Promise<void> {
+export async function addPointsByName(
+  name: string,
+  points: number,
+): Promise<void> {
   let viewer = await findByName(name);
 
   if (!viewer) {

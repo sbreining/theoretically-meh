@@ -1,5 +1,5 @@
-import { refreshTwitchUserAccess, requestTwitchAppAccess, requestTwitchUserAccess } from '../../api/twitch';
-import { addSecondsToDate, config } from '../../utility';
+import Twitch from '../../api/twitch';
+import Utility, { config } from '../../utility';
 import { Token } from '../entities/token';
 
 /**
@@ -31,17 +31,24 @@ export async function upsertTokenForService(
   return tokenObj;
 }
 
+/**
+ * Fetches the user token from the database. If it does not exist, a request
+ * will go to Twitch for an access token. If it is expired, utilize the refresh
+ * token to get a new access token, and the new values to the database.
+ *
+ * @returns {Promise<string>} - User Access Token
+ */
 export async function getUserToken(): Promise<string> {
   let token = await getTokenForService(config.twitch.channel);
 
   // If the row doesn't exist in DB, create it.
   if (!token) {
-    const response = await requestTwitchUserAccess();
+    const response = await Twitch.Auth.requestUserAccess();
 
     upsertTokenForService(
       config.twitch.channel,
       response.access_token,
-      addSecondsToDate(new Date(), response.expires_in),
+      Utility.Time.addSecondsToDate(new Date(), response.expires_in),
       response.refresh_token,
     );
 
@@ -51,13 +58,13 @@ export async function getUserToken(): Promise<string> {
 
   const now = new Date();
   if (now.getTime() > token.expiration.getTime()) {
-    const response = await refreshTwitchUserAccess(token.refresh_token);
+    const response = await Twitch.Auth.refreshUserAccess(token.refresh_token);
 
     // Don't need to await, it is just saving the new token to DB.
     upsertTokenForService(
       config.twitch.channel,
       response.access_token,
-      addSecondsToDate(now, response.expires_in),
+      Utility.Time.addSecondsToDate(now, response.expires_in),
       response.refresh_token,
     );
 
@@ -76,12 +83,12 @@ export async function getTwitchAppToken(): Promise<string> {
   let token = await getTokenForService('TWITCH');
 
   if (!token) {
-    const response = await requestTwitchAppAccess();
+    const response = await Twitch.Auth.requestAppAccess();
 
     upsertTokenForService(
       'TWITCH',
       response.access_token,
-      addSecondsToDate(new Date(), response.expires_in)
+      Utility.Time.addSecondsToDate(new Date(), response.expires_in)
     );
 
     return response.access_token;
@@ -89,13 +96,13 @@ export async function getTwitchAppToken(): Promise<string> {
 
   const now = new Date();
   if (now.getTime() > token.expiration.getTime()) {
-    const response = await requestTwitchAppAccess();
+    const response = await Twitch.Auth.requestAppAccess();
 
     // Don't need to await, it is just saving the new token to DB.
     upsertTokenForService(
       'TWITCH',
       response.access_token,
-      addSecondsToDate(now, response.expires_in),
+      Utility.Time.addSecondsToDate(now, response.expires_in),
     );
 
     return response.access_token;
