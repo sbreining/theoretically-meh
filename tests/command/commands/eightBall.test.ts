@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import eight from '../../src/commands/eightBall';
-import { getRandomInteger } from '../../src/utility';
+import eight from '../../../src/command/commands/eightBall';
+import Utility from '../../../src/utility';
 
 const getQuestionWord = (): string => {
-  return eight.questionWords[getRandomInteger(0, eight.questionWords.length - 1)]
+  return eight.questionWords[Utility.Number.getRandomInteger(0, eight.questionWords.length - 1)]
 }
 
 const buildQuestion = (hasWord = true, hasMark = true): string => {
@@ -18,27 +18,27 @@ describe('8ball', () => {
     it('should not answer without a question mark', () => {
       const question = buildQuestion(true, false);
 
-      expect(eight.exec(question)).toStrictEqual(eight.badUsage);
+      expect(eight.exec({ command: question })).toStrictEqual(eight.badUsage);
     });
 
     it('should not answer without a question word at the start', () => {
       const question = buildQuestion(false);
 
-      expect(eight.exec(question)).toStrictEqual(eight.badUsage);
+      expect(eight.exec({ command: question })).toStrictEqual(eight.badUsage);
     });
   });
 
   describe('Good usage', () => {
     it('should answer with one of the many 8ball phrases', () => {
       const question = buildQuestion();
-      const answer = eight.exec(question).split('"')[1];
+      const answer = eight.exec({ command: question }).split('"')[1];
 
       expect(eight.answers).toContain(answer);
     });
 
     it('should preceed the answer with "8ball says; "', () => {
       const question = buildQuestion();
-      const answer = eight.exec(question);
+      const answer = eight.exec({ command: question });
 
       expect(answer).toMatch(/^8ball says; /);
     });

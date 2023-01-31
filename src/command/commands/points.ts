@@ -1,5 +1,6 @@
-import { create, findByName } from '../database/repositories/viewer';
-import Command from './command';
+import { ChatUserstate } from 'tmi.js';
+import { create, findByName } from '../../database/repositories/viewer';
+import Command, { CommandArgs } from './command';
 
 class Points implements Command {
   public readonly command = 'points';
@@ -13,13 +14,11 @@ class Points implements Command {
   /**
    * Will tell `name` how many points they have.
    *
-   * @param {string|null} name - The display name of the viewer.
+   * @param {ChatUserstate} name - The display name of the viewer.
    * @param {string} - The message with name and points.
    */
-  public async exec(name?: string): Promise<string> {
-    if (!name) {
-      return 'Could not figure out who to find points for.';
-    }
+  public async exec(args: CommandArgs): Promise<string> {
+    const { context: { 'display-name': name } } = args;
 
     let viewer = await findByName(name);
     if (!viewer) {

@@ -1,13 +1,14 @@
 {
   "name": "theoretically-meh",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A twitch chat bot, named after my friend Will, who always answered \"How are you?\" with \"Meh.\"",
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf ./build && tsc",
     "dev": "ts-node-dev --poll src/index.ts",
     "start": "npm run build && node build/index.js",
-    "test": "jest --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "Twitch",
@@ -19,7 +20,7 @@
   "author": "Shane Breining",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.2.5",
+    "axios": "^1.2.6",
     "dotenv": "^16.0.3",
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
@@ -38,7 +39,7 @@
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "prettier": {
     "singleQuote": true,

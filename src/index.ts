@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { ChatUserstate, Client } from 'tmi.js';
-import execute from './commands';
+import execute from './command';
 import Utility, { config } from './utility';
 import DataSource from './database';
 import { distributePointsToViewership } from './utility/intervals';

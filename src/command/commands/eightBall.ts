@@ -1,5 +1,5 @@
-import Utility from '../utility';
-import Command from './command';
+import Utility from '../../utility';
+import Command, { CommandArgs } from './command';
 
 class EightBall implements Command {
   public readonly command = '8ball';
@@ -39,19 +39,26 @@ class EightBall implements Command {
     'Very doubtful.',
   ];
 
-  private regex =
-    new RegExp(`^(8ball )((${this.questionWords.join("|")}) .+\\?)$`, "i");
+  private readonly regex: RegExp;
+
+  constructor() {
+    this.regex = new RegExp(
+      `^(8ball )((${this.questionWords.join('|')}) .+\\?)$`, 'i'
+    );
+  }
 
   /**
    * When posing a question to the Magic 8-ball, it will return with one of
    * its many remarks.
    *
-   * @param {string} question - The whole command with the preceeding `!8ball `
+   * @param {string} question - The whole command with the preceeding `8ball `
    * @returns {string} - The answer to the question asked, or if asked
    *                     incorrectly a usage message.
    */
-  public exec(question: string): string {
-    if (!this.regex.test(question)) return this.badUsage;
+  public exec(args: CommandArgs): string {
+    const { command } = args;
+
+    if (!this.regex.test(command)) return this.badUsage;
 
     const answer = this.answers[Utility.Number.getRandomInteger(0, 19)];
 

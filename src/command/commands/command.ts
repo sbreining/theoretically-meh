@@ -1,3 +1,10 @@
+import { ChatUserstate } from "tmi.js";
+
+export type CommandArgs = {
+  command?: string|undefined;
+  context?: ChatUserstate|undefined;
+};
+
 /**
  * This will stand as the definition for commands.
  * All commands within the `commands/` folder should
@@ -14,8 +21,8 @@ export default interface Command {
    * This shall serve as the execution when a command
    * is entered in chat.
    *
-   * @param {Array<any>} args - If any are necessary
+   * @param {CommandArgs} args - If any are necessary
    * @returns {string|Promise<string>} - The string response.
    */
-  exec(...args: any[]): string | Promise<string>;
+  exec(args?: CommandArgs): string | Promise<string>;
 }

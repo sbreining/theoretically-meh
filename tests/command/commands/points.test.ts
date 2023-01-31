@@ -1,21 +1,15 @@
 import { faker } from '@faker-js/faker';
-import { getRandomInteger } from '../../src/utility';
-import points from '../../src/commands/points';
-import { findByName, create } from '../../src/database/repositories/viewer';
+import Utility from '../../../src/utility';
+import points from '../../../src/command/commands/points';
+import { findByName, create } from '../../../src/database/repositories/viewer';
 
-jest.mock('../../src/database/repositories/viewer');
+jest.mock('../../../src/database/repositories/viewer');
 const mockGetViewerByName = findByName as jest.Mock;
 const mockCreate = create as jest.Mock;
 
 describe('points', () => {
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('should give a message explaining it could not find the points', async () => {
-    const msg = await points.exec();
-
-    expect(msg).toBe('Could not figure out who to find points for.');
   });
 
   describe('finds viewer', () => {
@@ -27,10 +21,10 @@ describe('points', () => {
     });
 
     it('should tell the display name how many points they have', async () => {
-      points_ = getRandomInteger(2, 999);
+      points_ = Utility.Number.getRandomInteger(2, 999);
       mockGetViewerByName.mockResolvedValue({ points: points_ });
 
-      const msg = await points.exec(display_name);
+      const msg = await points.exec({ context: { 'display-name': display_name } });
 
       expect(mockGetViewerByName).toBeCalledWith(display_name);
       expect(mockCreate).toBeCalledTimes(0);
@@ -40,7 +34,7 @@ describe('points', () => {
     it('should tell the display name they have one point', async () => {
       mockGetViewerByName.mockResolvedValue({ points: 1 });
 
-      const msg = await points.exec(display_name);
+      const msg = await points.exec({ context: { 'display-name': display_name } });
 
       expect(msg).toBe(`${display_name} has 1 point!`);
     });
@@ -61,7 +55,7 @@ describe('points', () => {
     });
 
     it('should call create() when the viewer is not found', async () => {
-      const msg = await points.exec(name);
+      const msg = await points.exec({ context: { 'display-name': name } });
 
       expect(mockGetViewerByName).toBeCalledWith(name);
       expect(mockCreate).toHaveBeenCalledWith(name);

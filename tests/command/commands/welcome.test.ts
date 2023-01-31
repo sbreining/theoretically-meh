@@ -1,4 +1,4 @@
-import welcome from '../../src/commands/welcome';
+import welcome from '../../../src/command/commands/welcome';
 
 describe('welcome', () => {
   it('should return the expected message', () => {

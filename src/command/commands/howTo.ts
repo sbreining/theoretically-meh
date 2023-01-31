@@ -1,4 +1,4 @@
-import Command from './command';
+import Command, { CommandArgs } from './command';
 import dice from './dice';
 import discord from './discord';
 import welcome from './welcome';
@@ -18,8 +18,12 @@ class HowTo implements Command {
    *
    * @param {string|undefined} command - The command to learn how to use.
    */
-  public exec(command?: string): string {
-    switch (command) {
+  public exec(args?: CommandArgs): string {
+    if (!args) return this.instruction;
+
+    const { command } = args;
+
+    switch (command.split(' ')[1]) {
       case dice.command:
         return dice.instruction;
       case discord.command:

@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
-import { getViewersList } from '../../src/api/twitch';
+import Twitch from '../../src/api/twitch';
 import { addPointsByName } from '../../src/database/repositories/viewer';
 import { distributePointsToViewership } from '../../src/utility/intervals';
 
 jest.mock('../../src/api/twitch');
-let mockGetViewersList = getViewersList as jest.Mock;
+let mockGetViewersList = Twitch.User.getViewersList as jest.Mock;
 
 jest.mock('../../src/database/repositories/viewer');
 let mockAddPoints = addPointsByName as jest.Mock;

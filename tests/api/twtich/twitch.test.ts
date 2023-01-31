@@ -1,4 +1,4 @@
-import { getViewersList, requestTwitchAppAccess } from '../../../src/api/twitch';
+import Twitch from '../../../src/api/twitch';
 import { config } from '../../../src/utility';
 import axios from 'axios';
 
@@ -23,13 +23,13 @@ describe('Twitch API', () => {
     });
 
     it('should call GET with the correct URL', async () => {
-      await getViewersList();
+      await Twitch.User.getViewersList();
 
       expect(getMock).toHaveBeenCalledWith(`http://tmi.twitch.tv/group/user/${twitch.channel}/chatters`);
     });
 
     it('should return the chatters from the api response', async () => {
-      const actualReturn = await getViewersList();
+      const actualReturn = await Twitch.User.getViewersList();
 
       expect(actualReturn).toBe(expectedReturn);
     });
@@ -44,7 +44,7 @@ describe('Twitch API', () => {
     });
 
     it('should POST to the correct URL', async () => {
-      await requestTwitchAppAccess();
+      await Twitch.Auth.requestAppAccess();
 
       expect(postMock).toHaveBeenCalledWith(
         `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`
@@ -52,7 +52,7 @@ describe('Twitch API', () => {
     });
 
     it("should return the body of the response contained in the 'data' key", async () => {
-      const actualReturn = await requestTwitchAppAccess();
+      const actualReturn = await Twitch.Auth.requestAppAccess();
 
       expect(actualReturn).toBe(expectedReturn);
     });
