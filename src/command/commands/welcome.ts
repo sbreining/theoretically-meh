@@ -1,6 +1,6 @@
-import Command from './command';
+import { UserCommand } from './command';
 
-class Welcome implements Command {
+class Welcome extends UserCommand {
   public readonly command = 'welcome';
 
   public readonly instruction = 'Simply type "!welcome"';

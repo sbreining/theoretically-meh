@@ -1,7 +1,6 @@
-import { ChatUserstate } from 'tmi.js';
-import Command, { CommandArgs } from './command';
+import { CommandArgs, UserCommand } from './command';
 
-class RollDice implements Command {
+class RollDice extends UserCommand {
   public readonly command = 'roll';
 
   public readonly instruction =

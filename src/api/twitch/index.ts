@@ -6,7 +6,10 @@ import {
 
 import * as Auth from './auth';
 import * as Channel from './channel';
+import * as Stream from './stream';
 import * as User from './user';
+
+export const API_URL = 'https://api.twitch.tv/helix';
 
 /**
  * Returns the headers needed to perform authorized actions such as; running
@@ -16,7 +19,7 @@ import * as User from './user';
  */
 export async function getHeaders(
   contentType?: string,
-  needsUserToken = true,
+  needsUserToken = false,
 ): Promise<any> {
   const token = await (needsUserToken ? getUserToken() : getTwitchAppToken());
 
@@ -30,4 +33,4 @@ export async function getHeaders(
   return { ...headers, 'Content-Type': contentType };
 }
 
-export default { Auth, Channel, User };
+export default { Auth, Channel, Stream, User };

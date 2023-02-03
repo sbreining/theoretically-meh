@@ -31,6 +31,7 @@ export default {
     password: process.env.DB_PASS,
     database: process.env.DB_BASE,
     synchronize: envToBool(process.env.DB_SYNC),
+    logging: envToBool(process.env.DB_LOGG),
   }
 };
 

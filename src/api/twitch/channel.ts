@@ -1,9 +1,7 @@
 import axios from 'axios';
 import Utility, { config } from '../../utility';
-import { getHeaders } from './index';
+import { API_URL, getHeaders } from './index';
 import { ChannelInfo, UpdateChannelInfo } from './types';
-
-const API_URL = 'https://api.twitch.tv/helix';
 
 /**
  * Request to the twitch API for the channel information.
@@ -13,7 +11,7 @@ const API_URL = 'https://api.twitch.tv/helix';
 export async function getInfo(): Promise<ChannelInfo> {
   const url = `${API_URL}/channels?broadcaster_id=${config.twitch.broadcaster}`;
 
-  const headers = await getHeaders(null, false);
+  const headers = await getHeaders();
 
   const response = await axios.get(url, { headers });
 
@@ -34,7 +32,7 @@ export async function getInfo(): Promise<ChannelInfo> {
 export async function updateInfo(info: UpdateChannelInfo): Promise<boolean> {
   const url = `${API_URL}/channels?broadcaster_id=${config.twitch.broadcaster}`;
 
-  const headers = await getHeaders('application/json');
+  const headers = await getHeaders('application/json', true);
 
   const response = await axios.patch(url, info, { headers });
 

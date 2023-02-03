@@ -1,8 +1,7 @@
-import { ChatUserstate } from 'tmi.js';
 import { create, findByName } from '../../database/repositories/viewer';
-import Command, { CommandArgs } from './command';
+import { CommandArgs, UserCommand } from './command';
 
-class Points implements Command {
+class Points extends UserCommand {
   public readonly command = 'points';
 
   public readonly instruction =

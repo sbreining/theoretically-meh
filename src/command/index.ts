@@ -1,5 +1,7 @@
 import { ChatUserstate } from 'tmi.js';
+import { getCmd } from '../database/repositories/cmd';
 import commands from './commands';
+import { ModCommand } from './commands/command';
 
 /**
  * Executes `command` and calls appropriate fucntion to handle the command.
@@ -11,13 +13,17 @@ import commands from './commands';
  * @return {Promise<string>} - The message, split into pieces of 500 characters,
  *                             to ensure not to reach character limit.
  */
-export default async function executeCommand(
-  command: string,
-  context: ChatUserstate,
-): Promise<string> {
+async function exec(command: string, context: ChatUserstate): Promise<string> {
   const cmd = command.split(' ')[0];
 
-  if (!commands[cmd]) return '';
+  const cmdObject = commands[cmd];
+  if (cmdObject) {
+    if (cmdObject instanceof ModCommand && !context.mod) return '';
 
-  return await commands[cmd].exec({ command, context });
+    return await cmdObject.exec({ command, context });
+  }
+
+  return (await getCmd(cmd))?.response || '';
 }
+
+export default exec;

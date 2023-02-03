@@ -1,7 +1,7 @@
 import { config } from '../../utility';
-import Command from './command';
+import { UserCommand } from './command';
 
-class Discord implements Command {
+class Discord extends UserCommand {
   public readonly command = 'discord';
 
   public readonly instruction =

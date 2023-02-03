@@ -1,8 +1,7 @@
-import { ChatUserstate } from "tmi.js";
 import TwitchApi from "../../api/twitch";
-import Command, { CommandArgs } from "./command";
+import { CommandArgs, UserCommand } from "./command";
 
-class Title implements Command {
+class Title extends UserCommand {
   public readonly command = 'title';
 
   public readonly instruction =
@@ -22,20 +21,25 @@ class Title implements Command {
   public async exec(args: CommandArgs): Promise<string> {
     const { command, context: { mod: isMod } } = args;
 
-    if (command === 'title' || !isMod) {
-      const { title } = await TwitchApi.Channel.getInfo();
-
-      return title;
+    // If there is more to the title, update if user is mod, otherwise, early
+    // exit. Plain users should just use "!title"
+    if (command != 'title') {
+      return isMod ? await this.updateTitle(args) : '';
     }
 
-    // By this point, where know there is more to the title.
+    const { title } = await TwitchApi.Channel.getInfo();
+
+    return title;
+  }
+
+  private async updateTitle(args: CommandArgs): Promise<string> {
+    const { command, context: { mod: isMod } } = args;
+
     const title = command.replace('title ', '');
 
-    if (await TwitchApi.Channel.updateInfo({ title })) {
-      return 'Title updated successfully';
-    }
-
-    return 'Attempted to udpate, but something went wrong';
+   return await TwitchApi.Channel.updateInfo({ title }) ?
+      'Title updated successfully' :
+      'Attempted to udpate, but something went wrong';
   }
 }
 

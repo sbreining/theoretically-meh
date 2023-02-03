@@ -1,5 +1,6 @@
 import Twitch from '../api/twitch';
 import { addPointsByName } from '../database/repositories/viewer';
+import config from './config';
 
 /**
  * Get the list of viewers currently watching the stream, and based
@@ -7,6 +8,11 @@ import { addPointsByName } from '../database/repositories/viewer';
  */
 export async function distributePointsToViewership(): Promise<void> {
   const groups = await Twitch.User.getViewersList();
+
+  const stream = await Twitch.Stream.getStreamInfo(config.twitch.channel);
+
+  // Stream is not live, don't award points.
+  if (!stream) return;
 
   if (Object.keys(groups).length == 0) return;
 

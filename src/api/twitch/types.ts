@@ -1,10 +1,8 @@
-export type UserAuth = {
+export type AppAuth = {
   access_token: string;
-  refresh_token: string;
   expires_in: number;
   token_type: string;
-  scope: string|string[];
-}
+};
 
 export type ChannelInfo = {
   broadcaster_id: string;
@@ -15,13 +13,25 @@ export type ChannelInfo = {
   game_name: string;
   title: string;
   delay: string;
-  tages: string[];
-}
+  tags: string[];
+};
 
-export type AppAuth = {
-  access_token: string;
-  expires_in: number;
-  token_type: string;
+export type StreamInfo = {
+  id: string;
+  user_id: string;
+  user_login: string;
+  user_name: string;
+  game_id: string;
+  game_name: string;
+  type: string;
+  title: string;
+  tags: string[];
+  viewer_count: number;
+  started_at: string;
+  language: string;
+  thumbnail_url: string;
+  tag_ids: string[];
+  is_mature: boolean;
 };
 
 export type UpdateChannelInfo = {
@@ -30,6 +40,14 @@ export type UpdateChannelInfo = {
   title?: string;
   delay?: number;
   tags?: string[];
+};
+
+export type UserAuth = {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  token_type: string;
+  scope: string|string[];
 };
 
 export type ViewerList = {

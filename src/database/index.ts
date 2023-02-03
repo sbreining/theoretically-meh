@@ -6,7 +6,6 @@ const { isProduction, database_config } = config;
 
 export default new DataSource({
   ...(database_config as DataSourceOptions),
-  logging: !isProduction,
   entities,
   subscribers: [],
   migrations: [],

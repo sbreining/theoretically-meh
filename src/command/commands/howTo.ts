@@ -1,4 +1,4 @@
-import Command, { CommandArgs } from './command';
+import { CommandArgs, UserCommand } from './command';
 import dice from './dice';
 import discord from './discord';
 import welcome from './welcome';
@@ -6,7 +6,7 @@ import points from './points';
 import eight from './eightBall';
 import title from './title';
 
-class HowTo implements Command {
+class HowTo extends UserCommand {
   public readonly command = 'howTo';
 
   public readonly instruction =

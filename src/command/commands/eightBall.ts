@@ -1,7 +1,7 @@
 import Utility from '../../utility';
-import Command, { CommandArgs } from './command';
+import { CommandArgs, UserCommand } from './command';
 
-class EightBall implements Command {
+class EightBall extends UserCommand {
   public readonly command = '8ball';
 
   public readonly instruction =
@@ -42,6 +42,8 @@ class EightBall implements Command {
   private readonly regex: RegExp;
 
   constructor() {
+    super();
+
     this.regex = new RegExp(
       `^(8ball )((${this.questionWords.join('|')}) .+\\?)$`, 'i'
     );
