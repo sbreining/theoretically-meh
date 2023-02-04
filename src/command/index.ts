@@ -1,5 +1,6 @@
 import { ChatUserstate } from 'tmi.js';
 import { getCmd } from '../database/repositories/cmd';
+import config from '../utility/config';
 import commands from './commands';
 import { ModCommand } from './commands/command';
 
@@ -18,7 +19,10 @@ async function exec(command: string, context: ChatUserstate): Promise<string> {
 
   const cmdObject = commands[cmd];
   if (cmdObject) {
-    if (cmdObject instanceof ModCommand && !context.mod) return '';
+    const { mod: isMod, 'display-name': name } = context;
+    const hasPermission = isMod || name.toLowerCase() === config.twitch.channel;
+
+    if (cmdObject instanceof ModCommand && !hasPermission) return '';
 
     return await cmdObject.exec({ command, context });
   }

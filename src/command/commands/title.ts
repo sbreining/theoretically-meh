@@ -1,4 +1,5 @@
 import TwitchApi from "../../api/twitch";
+import config from "../../utility/config";
 import { CommandArgs, UserCommand } from "./command";
 
 class Title extends UserCommand {
@@ -12,13 +13,15 @@ class Title extends UserCommand {
   public async exec(
     {
       command,
-      context: { mod: isMod }
+      context: { mod: isMod, 'display-name': name}
     }: CommandArgs
   ): Promise<string> {
     // If there is more to the title, update if user is mod, otherwise, early
     // exit. Plain users should just use "!title"
     if (command != 'title') {
-      return isMod ? await this.updateTitle(command) : '';
+      const hasAuth = name.toLowerCase() == config.twitch.channel || isMod;
+
+      return hasAuth ? await this.updateTitle(command) : '';
     }
 
     const { title } = await TwitchApi.Channel.getInfo();
