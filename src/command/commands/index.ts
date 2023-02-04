@@ -2,17 +2,16 @@ import cmd from './manageCmds';
 import dice from './dice';
 import discord from './discord';
 import eight from './eightBall';
-import howTo from './howTo';
 import points from './points';
 import title from './title';
 import welcome from './welcome';
+import game from './game';
 
 const userCommands = [
   'commands',
   dice.command,
   discord.command,
   eight.command,
-  howTo.command,
   points.command,
   title.command,
   welcome.command,
@@ -28,7 +27,6 @@ export default {
   [dice.command]: dice,
   [discord.command]: discord,
   [eight.command]: eight,
-  [howTo.command]: howTo,
   [points.command]: points,
   [welcome.command]: welcome,
 
@@ -38,4 +36,5 @@ export default {
   // Mod Commands
   addcom: cmd,
   delcom: cmd,
+  game: game,
 };

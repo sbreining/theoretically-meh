@@ -4,10 +4,6 @@ import { CommandArgs, UserCommand } from './command';
 class EightBall extends UserCommand {
   public readonly command = '8ball';
 
-  public readonly instruction =
-    'Start with !8ball, the follow it with a question that includes a' +
-    ' question word and ends with a "?"';
-
   public readonly questionWords =
     ['are', 'am', 'will', 'is', 'did', 'do', 'does', 'can'];
 
@@ -52,14 +48,8 @@ class EightBall extends UserCommand {
   /**
    * When posing a question to the Magic 8-ball, it will return with one of
    * its many remarks.
-   *
-   * @param {string} question - The whole command with the preceeding `8ball `
-   * @returns {string} - The answer to the question asked, or if asked
-   *                     incorrectly a usage message.
    */
-  public exec(args: CommandArgs): string {
-    const { command } = args;
-
+  public exec({ command }: CommandArgs): string {
     if (!this.regex.test(command)) return this.badUsage;
 
     const answer = this.answers[Utility.Number.getRandomInteger(0, 19)];

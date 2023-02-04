@@ -1,18 +1,13 @@
-import { deleteCmd, upsertCmd } from "../../database/repositories/cmd";
-import { CommandArgs, ModCommand } from "./command";
+import { deleteCmd, upsertCmd } from '../../database/repositories/cmd';
+import { CommandArgs, ModCommand } from './command';
 
 class ManageCmds extends ModCommand {
 
   /**
    * The ability for moderators of the streamers channel to add or remove custom
    * text based commands. These commands can only respond with text.
-   *
-   * @returns {string} - Informs the moderator (and chat really) that the
-   *                     command was added or deleted successfully.
    */
-  public async exec(args: CommandArgs): Promise<string> {
-    const { command } = args;
-
+  public async exec({ command }: CommandArgs): Promise<string> {
     const [botCommand, cmd] = this.splitCommand(command);
 
     return botCommand === 'addcom' ? this.addcom(cmd) : this.delcom(cmd);

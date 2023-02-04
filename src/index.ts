@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import { ChatUserstate, Client } from 'tmi.js';
 import execute from './command';
 import Utility, { config } from './utility';

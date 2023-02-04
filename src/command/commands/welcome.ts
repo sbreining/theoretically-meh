@@ -3,12 +3,8 @@ import { UserCommand } from './command';
 class Welcome extends UserCommand {
   public readonly command = 'welcome';
 
-  public readonly instruction = 'Simply type "!welcome"';
-
   /**
    * Returns a simple message with the channel information.
-   *
-   * @return {string} - The message.
    */
   public exec(): string {
     return (

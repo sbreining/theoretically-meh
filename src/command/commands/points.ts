@@ -4,21 +4,12 @@ import { CommandArgs, UserCommand } from './command';
 class Points extends UserCommand {
   public readonly command = 'points';
 
-  public readonly instruction =
-    'To find out how many points you have, simply type the' +
-    ' command "!points". Points are earned by remaining in' +
-    ' channel every 5 minutes There are also additional' +
-    ' ways, via games in chat.';
-
   /**
    * Will tell `name` how many points they have.
-   *
-   * @param {ChatUserstate} name - The display name of the viewer.
-   * @param {string} - The message with name and points.
    */
-  public async exec(args: CommandArgs): Promise<string> {
-    const { context: { 'display-name': name } } = args;
-
+  public async exec(
+    { context: { 'display-name': name } }: CommandArgs
+  ): Promise<string> {
     let viewer = await findByName(name);
     if (!viewer) {
       viewer = await create(name);
