@@ -15,9 +15,6 @@ class Game extends ModCommand {
     const game = command.split(' ')[1];
 
     TwitchApi.Channel.updateInfo({ game_id: this.GAMES[game.toLowerCase()] })
-      .then(isUpdated => {
-        isUpdated ? console.log('worked') : console.error('oops')
-      });
 
     // Always return empty string, because the game category should update
     // on Twitch.
