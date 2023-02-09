@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 
 services:
   postgres:
@@ -26,7 +26,6 @@ services:
   application:
     build:
       context: .
-      target: prod
     links:
       - postgres:database
     depends_on:

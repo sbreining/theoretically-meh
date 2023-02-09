@@ -5,11 +5,11 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm i
 
-COPY . .
+COPY ./ ./
 
 RUN npm run build
 
@@ -20,11 +20,11 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm ci --only=production
 
-COPY --from=build /usr/src/app/build ./build
-COPY ./.env .
+COPY --from=build /usr/src/app/build/ ./build/
+COPY ./.env ./
 
 CMD ["node", "build/index.js"]
