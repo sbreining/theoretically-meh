@@ -11,11 +11,10 @@ import { StreamInfo } from './types';
  *                                  being used for.
  */
 export async function getStreamInfo(channel: string): Promise<StreamInfo> {
-  const response = await axios({
-    method: 'GET',
-    url: `${API_URL}/streams?${buildUrlParams({ user_login: channel })}`,
-    headers: await getHeaders()
-  });
+  const response = await axios.get(
+    `${API_URL}/streams?${buildUrlParams({ user_login: channel })}`,
+    { headers: await getHeaders() }
+  );
 
   return response.data.data[0];
 }

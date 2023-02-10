@@ -1,11 +1,15 @@
+import { config } from 'dotenv';
+
+config();
+
 import 'reflect-metadata';
 import { ChatUserstate, Client } from 'tmi.js';
 import execute from './command';
-import Utility, { config } from './utility';
+import Utility, { config as appConfig } from './utility';
 import DataSource from './database';
 import { distributePointsToViewership } from './utility/intervals';
 
-const { isProduction, twitch } = config;
+const { isProduction, twitch } = appConfig;
 
 // I miss you, Will. Hopefully you're resting well big guy.
 // Yes, that is a fat joke.

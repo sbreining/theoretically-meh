@@ -4,7 +4,7 @@ import axios from 'axios';
 
 jest.mock('axios');
 
-describe('Twitch API', () => {
+describe('Twitch User API', () => {
   const { twitch } = config;
 
   afterEach(() => {
@@ -33,28 +33,13 @@ describe('Twitch API', () => {
 
       expect(actualReturn).toBe(expectedReturn);
     });
-  });
 
-  describe('getToken', () => {
-    const postMock = axios.post as jest.Mock;
-    const expectedReturn = { foo: 'bar' };
+    it('should return an empty object when catching an error', async () => {
+      getMock.mockRejectedValue({});
 
-    beforeEach(() => {
-      postMock.mockReturnValue({ data: expectedReturn });
-    });
+      const actual = await Twitch.User.getViewersList();
 
-    it('should POST to the correct URL', async () => {
-      await Twitch.Auth.requestAppAccess();
-
-      expect(postMock).toHaveBeenCalledWith(
-        `https://id.twitch.tv/oauth2/token?client_id=${twitch.client}&client_secret=${twitch.secret}&grant_type=client_credentials`
-      );
-    });
-
-    it("should return the body of the response contained in the 'data' key", async () => {
-      const actualReturn = await Twitch.Auth.requestAppAccess();
-
-      expect(actualReturn).toBe(expectedReturn);
+      expect(actual).toStrictEqual({});
     });
   });
 });

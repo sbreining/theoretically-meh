@@ -7,12 +7,12 @@ import config from './config';
  * on what level viewer they are, add points for them.
  */
 export async function distributePointsToViewership(): Promise<void> {
-  const groups = await Twitch.User.getViewersList();
-
   const stream = await Twitch.Stream.getStreamInfo(config.twitch.channel);
 
   // Stream is not live, don't award points.
   if (!stream) return;
+
+  const groups = await Twitch.User.getViewersList();
 
   if (Object.keys(groups).length == 0) return;
 

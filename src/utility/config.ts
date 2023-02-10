@@ -1,7 +1,3 @@
-import { config } from 'dotenv';
-
-config();
-
 export default {
   isProduction: isProduction(),
   twitch: {
@@ -35,24 +31,39 @@ export default {
   }
 };
 
+/**
+ * Simply keeping the export object simplified. In the event that a test
+ * environment is needed, this will need to change.
+ *
+ * @returns {boolean} - True if the `NODE_ENV` set to "production"
+ */
 export function isProduction(): boolean {
   return process.env.NODE_ENV === 'production';
 }
 
 /**
+ * Convert an environment variable to a `boolean`. Will take the value of the
+ * environment variable, covert it to lower case, then compare against the
+ * string of "true". ("True", "TRUE", etc will result in `true`)
  *
- * @param env_str
- * @returns
+ * @param {string} env_str - The value of the environment variable.
+ * @returns {boolean} - `true` if env_str is "true", `false` otherwise.
  */
 export function envToBool(env_str: string): boolean {
-  return env_str === 'true';
+  return env_str.toLowerCase() === 'true';
 }
 
 /**
+ * Converts environment variable read in to a `number` type. However, it will
+ * throw an error if the number cannot be parsed.
  *
- * @param env_str
- * @returns
+ * @param {string} env_str - The value of the environment variable.
+ * @returns {number} - The value of the environment variable as a number type.
  */
 export function envToNum(env_str: string): number {
-  return Number(env_str) ?? 0;
+  const num = Number(env_str);
+
+  if (!num) throw new Error(`Cannot convert ${env_str} to number.`);
+
+  return num;
 }

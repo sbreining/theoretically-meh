@@ -5,19 +5,13 @@ import { distributePointsToViewership } from '../../src/utility/intervals';
 
 jest.mock('../../src/api/twitch');
 let mockGetViewersList = Twitch.User.getViewersList as jest.Mock;
+let mockGetStreamInfo = Twitch.Stream.getStreamInfo as jest.Mock;
 
 jest.mock('../../src/database/repositories/viewer');
 let mockAddPoints = addPointsByName as jest.Mock;
 
 describe('Interval Tools', () => {
   beforeEach(() => {
-    // If more places start to use timer functions outside of this,
-    // turn to jest.config.js and use the following block:
-    /**
-     * module.exports = {
-     *   timers: 'legacy',
-     * };
-     */
     jest.useFakeTimers();
   });
 
@@ -38,11 +32,31 @@ describe('Interval Tools', () => {
       mockGetViewersList.mockResolvedValue(groups);
     });
 
-    it('should distribute points to viewers of each group', async () => {
-      await distributePointsToViewership();
+    describe('when the stream is live', () => {
+      beforeEach(() => {
+        mockGetStreamInfo.mockResolvedValue({});
+      });
 
-      expect(mockGetViewersList).toHaveBeenCalled();
-      expect(mockAddPoints).toHaveBeenCalledTimes(8);
+      it('should distribute points to viewers of each group', async () => {
+
+        await distributePointsToViewership();
+
+        expect(mockGetViewersList).toHaveBeenCalled();
+        expect(mockAddPoints).toHaveBeenCalledTimes(8);
+      });
+    });
+
+    describe('when the stream is not live', () => {
+      beforeEach(() => {
+        mockGetStreamInfo.mockResolvedValue(undefined);
+      });
+
+      it('should not disribute points', async () => {
+        await distributePointsToViewership();
+
+        expect(mockGetViewersList).not.toHaveBeenCalled();
+        expect(mockAddPoints).not.toHaveBeenCalled();
+      });
     });
   });
 });
