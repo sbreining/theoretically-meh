@@ -11,38 +11,41 @@ jest.mock('../../src/database/repositories/viewer');
 let mockAddPoints = addPointsByName as jest.Mock;
 
 describe('Interval Tools', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-    jest.useRealTimers();
-  });
+  afterEach(() => jest.clearAllMocks());
 
   describe('distributePointsToViewership', () => {
-    beforeEach(() => {
-      const groups = {
-        broadcaster: [faker.internet.userName(), faker.internet.userName()],
-        vips: [faker.internet.userName(), faker.internet.userName()],
-        moderators: [faker.internet.userName(), faker.internet.userName()],
-        viewers: [faker.internet.userName(), faker.internet.userName()],
-      };
-
-      mockGetViewersList.mockResolvedValue(groups);
-    });
-
     describe('when the stream is live', () => {
       beforeEach(() => {
+        const groups = {
+          broadcaster: [faker.internet.userName(), faker.internet.userName()],
+          vips: [faker.internet.userName(), faker.internet.userName()],
+          moderators: [faker.internet.userName(), faker.internet.userName()],
+          viewers: [faker.internet.userName(), faker.internet.userName()],
+        };
+
+        mockGetViewersList.mockResolvedValue(groups);
         mockGetStreamInfo.mockResolvedValue({});
       });
 
       it('should distribute points to viewers of each group', async () => {
-
         await distributePointsToViewership();
 
         expect(mockGetViewersList).toHaveBeenCalled();
         expect(mockAddPoints).toHaveBeenCalledTimes(8);
+      });
+    });
+
+    describe('when there are no viewers', () => {
+      beforeEach(() => {
+        mockGetViewersList.mockResolvedValue({});
+        mockGetStreamInfo.mockResolvedValue({});
+      });
+
+      it('should not call `addPointsByName()`', async () => {
+        await distributePointsToViewership();
+
+        expect(mockGetViewersList).toHaveBeenCalled();
+        expect(mockAddPoints).not.toHaveBeenCalled();
       });
     });
 

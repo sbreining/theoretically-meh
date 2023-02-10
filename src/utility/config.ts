@@ -46,24 +46,24 @@ export function isProduction(): boolean {
  * environment variable, covert it to lower case, then compare against the
  * string of "true". ("True", "TRUE", etc will result in `true`)
  *
- * @param {string} env_str - The value of the environment variable.
+ * @param {string} env_val - The value of the environment variable.
  * @returns {boolean} - `true` if env_str is "true", `false` otherwise.
  */
-export function envToBool(env_str: string): boolean {
-  return env_str.toLowerCase() === 'true';
+export function envToBool(env_val: string): boolean {
+  return env_val.toLowerCase() === 'true';
 }
 
 /**
  * Converts environment variable read in to a `number` type. However, it will
  * throw an error if the number cannot be parsed.
  *
- * @param {string} env_str - The value of the environment variable.
+ * @param {string} env_val - The value of the environment variable.
  * @returns {number} - The value of the environment variable as a number type.
  */
-export function envToNum(env_str: string): number {
-  const num = Number(env_str);
+export function envToNum(env_val: string): number {
+  const num = Number(env_val);
 
-  if (!num) throw new Error(`Cannot convert ${env_str} to number.`);
+  if (!num) throw new Error(`Cannot convert ${env_val} to number.`);
 
   return num;
 }
