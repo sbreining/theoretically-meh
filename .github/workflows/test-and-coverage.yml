@@ -2,7 +2,10 @@ name: Unit Tests
 
 run-name: Unit Tests -- ${{ github.ref }}
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - master
 
 env:
   DB_TYPE: database
