@@ -1,6 +1,6 @@
-name: Unit Tests
+name: Unit Tests and Coverage
 
-run-name: Unit Tests -- ${{ github.ref }}
+run-name: Unit Tests and Coverage -- ${{ github.ref }}
 
 on:
   pull_request:
