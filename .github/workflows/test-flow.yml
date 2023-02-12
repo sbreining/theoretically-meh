@@ -1,11 +1,6 @@
 name: Unit Test Suite
-
-on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
-
+run-name: Running unit tests -- ${{ github.ref }}
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
