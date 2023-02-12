@@ -1,12 +1,12 @@
-name: Unit Test Suite
-run-name: Running unit tests -- ${{ github.ref }}
+name: Unit Tests
+run-name: Unit Tests -- ${{ github.ref }}
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x]
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
