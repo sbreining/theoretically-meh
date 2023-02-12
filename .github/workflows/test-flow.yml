@@ -7,7 +7,7 @@ on:
     branches: [ $default-branch ]
 
 jobs:
-  Build-And-Test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
