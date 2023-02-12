@@ -21,6 +21,16 @@ export default {
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "babel",
 
+  // This will be used to configure minimum threshold enforcement for coverage results.
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
+
   // A preset that is used as a base for Jest's configuration
   preset: "ts-jest",
 
