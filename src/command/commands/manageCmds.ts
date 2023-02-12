@@ -32,7 +32,7 @@ class ManageCmds extends ModCommand {
 
     await deleteCmd(cmd);
 
-    return `Command !${cmd} has been removed.`;
+    return `Command !${cmd} has been removed`;
   }
 
   private splitCommand(str: string): string[] {

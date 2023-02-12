@@ -7,7 +7,7 @@ import title from './title';
 import welcome from './welcome';
 import game from './game';
 
-const userCommands = [
+export const userCommands = [
   'commands',
   dice.command,
   discord.command,

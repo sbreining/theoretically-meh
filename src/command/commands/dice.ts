@@ -11,7 +11,7 @@ class RollDice extends UserCommand {
   public exec(
     {
       command,
-      context: { 'display-name': name = 'You' }
+      context: { 'display-name': name }
     }: CommandArgs
   ): string {
     let sides = Number(command?.split(' ')[1]) || null;

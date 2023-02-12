@@ -34,7 +34,7 @@ class Title extends UserCommand {
 
    return await TwitchApi.Channel.updateInfo({ title }) ?
       'Title updated successfully' :
-      'Attempted to udpate, but something went wrong';
+      'Attempted to update, but something went wrong';
   }
 }
 

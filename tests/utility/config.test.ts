@@ -4,7 +4,9 @@ import { envToBool, envToNum } from '../../src/utility/config';
 describe('Configuration Tests', () => {
   describe('envToBool', () => {
     it('should result in true for any case of "true"', () => {
-      const word = [['T', 't'], ['R', 'r'], ['U', 'u'], ['E', 'e']].map((letter) => letter[Math.floor(Math.random()*2)]).join('');
+      const word = [['T', 't'], ['R', 'r'], ['U', 'u'], ['E', 'e']]
+        .map((letter) => letter[Math.floor(Math.random()*2)])
+        .join('');
       const actual = envToBool(word);
 
       expect(actual).toBe(true);
@@ -19,7 +21,7 @@ describe('Configuration Tests', () => {
 
   describe('envToNum', () => {
     it('should return a number for any value that is a number', () => {
-      const expected = faker.datatype.number(100);
+      const expected = faker.datatype.number({ min: 1, max: 100 });
       const actual = envToNum(`${expected}`);
 
       expect(actual).toBe(expected);

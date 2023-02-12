@@ -11,6 +11,12 @@ class Game extends ModCommand {
     lor: '514790',
   }
 
+  /**
+   * Will update the game for the provided name. A much smaller dictionary of
+   * games is being used because these are the games I'm willing to stream.
+   *
+   * @returns {string} - An empty string such that nothing is said to channel.
+   */
   public async exec({ command }: CommandArgs): Promise<string> {
     const game = command.split(' ')[1];
 
