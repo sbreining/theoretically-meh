@@ -20,5 +20,5 @@ export function convertMinutesToMs(minutes: number): number {
  * @returns {Date} - A new date object with the added seconds.
  */
 export function addSecondsToDate(date: Date, seconds: number): Date {
-  return new Date(date.getTime() + seconds * 1000);
+  return new Date(date.getTime() + seconds * MILLISECONDS_PER_SECOND);
 }
